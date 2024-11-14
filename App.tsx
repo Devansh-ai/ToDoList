@@ -24,6 +24,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import TrackPlayer from 'react-native-track-player';
 
 type SectionProps = PropsWithChildren<{
   title: string;
