@@ -22,8 +22,9 @@ import { colors } from '../../utils/color'
      
       */
 
-const HomeHeader = () => {
-  const [view,setView]=useState(false);
+const HomeHeader = ({onPress,view}:{onPress:any,view:any}) => {
+
+ 
   return (
     <View style={styles.header}>
 
@@ -39,7 +40,7 @@ const HomeHeader = () => {
           style={styles.search}
         />
       </View>
-      <TouchableOpacity onPress={()=>setView(!view)}>
+      <TouchableOpacity onPress={onPress}>
         {/* <Image
           source={icons.tabView1}
         /> */}

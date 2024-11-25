@@ -5,36 +5,35 @@ import Header from '../../components/header'
 import { styles } from './styles'
 import NotesFooter from '../../components/notesFooter'
 import { colors } from '../../utils/color'
-// import TrackPlayer, { useProgress } from 'react-native-track-player';
-
-import  Slider  from '@react-native-community/slider'
+import { useRoute } from '@react-navigation/native'
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const SCREEN_WIDTH = Dimensions.get('screen').width;
-// const progress = useProgress();
 
 const NotesScreen = ({ navigation }: { navigation: any }) => {
-  // const STORAGE_KEY = `@notes_data${id}`;
 
+  const route = useRoute();
+  const { onGoBack }:any = route.params;
   const [title, setTitle] = useState<string>('');
   const [note, setNote] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>(colors.theme);
   const [imageUpload, setImageUpload] = useState<any>([]);
   const [audioUpload,setAudioUpload]=useState<string>('');
-  // const {position, duration } = useProgress();
 
   const handlePress = () => {
     navigation.goBack();
+    onGoBack({
+      'title': title,
+      'note': note,
+    })
   }
 
   const handleTitle = (text: any) => {
     setTitle(text);
-    console.log(title, "lkjhgfdsa");
   }
 
   const handleNote = (text: any) => {
     setNote(text);
-    console.log(note, "note");
   }
 
   const renderImage = () => {
@@ -52,7 +51,6 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
     )
   }
   const renderItem = () => {
-    // console.log('renderimage', renderImage())
     return (
       <View style={{flexDirection:'row',flexWrap:'wrap'}}>
 
@@ -60,12 +58,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       </View>
     )
   }
-
-  console.warn(imageUpload);
-
- 
-
-  return (
+return (
     <>
       <View style={{ flex: 1, backgroundColor: colors.mainBg }} >
         <Header
@@ -111,9 +104,6 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
           const newArr = [...imageUpload, uri]
           setImageUpload(newArr);
         }}
-        // audioUploadPress={(uri:string)=>{
-        //   setAudioUpload(uri);
-        // }}
       />
     </>
   )
