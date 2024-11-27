@@ -23,14 +23,14 @@ const Colors = (props: any) => {
                 borderColor: 'white',
                 height: 50,
                 width: 50,
-               margin: 10,
+                margin: 10,
             }} />
         )
 
     }
     return (
         <View style={{ flex: 1 }}>
-            <Text style={{ marginLeft: 15,  color: '#8758c3',  fontSize: 18 ,fontWeight:'600'}}>Colors</Text>
+            <Text style={{ marginLeft: 15, color: '#8758c3', fontSize: 18, fontWeight: '600' }}>Colors</Text>
             <FlatList
                 horizontal={true}
                 data={colors}

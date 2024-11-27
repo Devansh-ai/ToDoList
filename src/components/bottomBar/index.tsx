@@ -25,7 +25,7 @@ const BottomBar = () => {
             tintColor={colors.secondaryBg}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity >
 
           <Image
             source={icons.camera}

@@ -10,10 +10,10 @@ import { colors } from '../../utils/color';
 
 
 
-const UploadModal = ({ visible, ondismiss,imageUploadPress}: {imageUploadPress:any, visible: any, ondismiss: any }) => {
-    const navigation=useNavigation();
+const UploadModal = ({ visible, ondismiss, imageUploadPress }: { imageUploadPress: any, visible: any, ondismiss: any }) => {
+    const navigation = useNavigation();
     const [imageUri, setImageUri] = useState<string | null>('');
-    const [audioUri,setAudioUri]=useState<string | null >('');
+    const [audioUri, setAudioUri] = useState<string | null>('');
     const toggleModal = () => {
         ondismiss()
     };
@@ -26,7 +26,7 @@ const UploadModal = ({ visible, ondismiss,imageUploadPress}: {imageUploadPress:a
             });
             console.log('Selected audio file:', res);
             setAudioUri(res);
-            console.log("res.uri",res);
+            console.log("res.uri", res);
             return res;
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
@@ -36,12 +36,7 @@ const UploadModal = ({ visible, ondismiss,imageUploadPress}: {imageUploadPress:a
             }
         }
     }
-    // useEffect (()=>{
-    //     console.log("first");
-    // },[imageUri,audioUri])
-    
     const openGallery = () => {
-        // toggleModal();
         launchImageLibrary({ mediaType: 'photo', quality: 1 }, (response: any) => {
             if (response.assets && response.assets[0]) {
                 console.log(imageUri, "imageuri")
@@ -53,14 +48,12 @@ const UploadModal = ({ visible, ondismiss,imageUploadPress}: {imageUploadPress:a
     };
 
     const handleTakePhoto = () => {
-        console.log('launch camerafghjkjhgfgjikjhghj');
+        console.log('launch camera');
         launchCamera({ mediaType: 'photo', quality: 1 }, (response: any) => {
             console.log('launch camera');
 
             if (response.assets && response.assets[0]) {
                 setImageUri(response.assets[0].uri ?? '')
-               // console.log(imageUri, "image uri")
-
             }
         });
         toggleModal();
@@ -71,8 +64,6 @@ const UploadModal = ({ visible, ondismiss,imageUploadPress}: {imageUploadPress:a
         const audioUri = await selectAudioFile();
         if (audioUri)
             console.log(audioUri, "audioUri")
-        // PlayAudio(audioUri);
-        // audioUploadPress(audioUri);
         toggleModal();
 
     };
@@ -128,8 +119,7 @@ const UploadModal = ({ visible, ondismiss,imageUploadPress}: {imageUploadPress:a
 
 
 
-                            <TouchableOpacity style={styles.modalButton} 
-                            // onPress={navigation.navigate('Canvas')}
+                            <TouchableOpacity style={styles.modalButton}
                             >
                                 <Image
                                     source={icons.draw}
@@ -186,7 +176,7 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         backgroundColor: '#f2f2f2',
-        borderRadius:20,
+        borderRadius: 20,
     },
     container: {
         flex: 1,

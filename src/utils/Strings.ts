@@ -18,4 +18,15 @@ const modal2 = {
     help: 'Help & feedback',
 
 }
-export { notesFooter, modal1, modal2 };
+const drawer = {
+    help: 'Help & feedback',
+    note: "Notes",
+    remind: "Reminders",
+    label: "Create new label",
+    archive: "Archive",
+    delete: "Deleted",
+    set: "Setting",
+
+
+}
+export { notesFooter, modal1, modal2, drawer };

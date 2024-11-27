@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
     },
     button: {
         height: 50, width: 50, resizeMode: 'contain',
-        //tintColor:'white', 
     },
     outer: {
         backgroundColor: colors.secondaryBg,

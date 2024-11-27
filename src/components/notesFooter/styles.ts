@@ -2,24 +2,17 @@ import { Dimensions, StyleSheet } from "react-native";
 import { colors } from "../../utils/color";
 
 export const styles = StyleSheet.create({
-    containerHead:{
-        // position:'absolute',
-        // bottom: 10,
+    containerHead: {
         backgroundColor: colors.mainBg,
-        // flex: 1,
-        
+
     },
     container: {
         backgroundColor: colors.mainBg,
         alignItems: 'center',
-        justifyContent:'space-evenly',
-    //    flex:1,
-       flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        flexDirection: 'row',
         paddingTop: Dimensions.get('screen').height * 0.02,
-       // height: '100%',
-        // position:'absolute',
-       bottom:30,
-        // marginBottom:40,
+        bottom: 30,
     },
     addIcon: {
 

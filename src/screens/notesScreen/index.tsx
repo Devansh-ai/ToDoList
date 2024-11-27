@@ -6,26 +6,34 @@ import { styles } from './styles'
 import NotesFooter from '../../components/notesFooter'
 import { colors } from '../../utils/color'
 import { useRoute } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import { addNotes, editNotes } from '../../Redux/config/configSlice'
 
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
 const NotesScreen = ({ navigation }: { navigation: any }) => {
-
+  const dispatch = useDispatch();
   const route = useRoute();
-  const { onGoBack }:any = route.params;
-  const [title, setTitle] = useState<string>('');
-  const [note, setNote] = useState<string>('');
+
+  const { id = 0, items = '', flag = false } = route.params || {};
+  const [title, setTitle] = useState<string>(items?.title || '');
+  const [note, setNote] = useState<string>(items?.note || '');
   const [selectedColor, setSelectedColor] = useState<string>(colors.theme);
   const [imageUpload, setImageUpload] = useState<any>([]);
-  const [audioUpload,setAudioUpload]=useState<string>('');
-
-  const handlePress = () => {
+const handlePress = () => {
     navigation.goBack();
-    onGoBack({
-      'title': title,
-      'note': note,
-    })
+    if (note != "" && title != "" && flag === false) {
+
+      dispatch(addNotes({ title, note }))
+
+    }
+    else {
+      if (flag) {
+
+        dispatch(editNotes({ item: { note, title }, id }))
+      }
+    }
   }
 
   const handleTitle = (text: any) => {
@@ -37,13 +45,13 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
   }
 
   const renderImage = () => {
-    const imageCount=imageUpload.length;
+    const imageCount = imageUpload.length;
     return (imageUpload ?? [])?.map?.((image: any, index: any) => {
       return (
         <View key={index} >
           <Image
-            source={{uri: image}}
-            style={{ height:SCREEN_HEIGHT*.3/imageCount, width:SCREEN_WIDTH*.7/imageCount }}
+            source={{ uri: image }}
+            style={{ height: SCREEN_HEIGHT * .3 / imageCount, width: SCREEN_WIDTH * .7 / imageCount }}
           />
         </View>
       )
@@ -52,24 +60,24 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
   }
   const renderItem = () => {
     return (
-      <View style={{flexDirection:'row',flexWrap:'wrap'}}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
 
         {renderImage()}
       </View>
     )
   }
-return (
+  return (
     <>
       <View style={{ flex: 1, backgroundColor: colors.mainBg }} >
         <Header
           onPress={handlePress}
         />
-        <ScrollView style = {{flex: 1}}>
-        <View style={[styles.container, { backgroundColor: selectedColor }]}>
-          <View style={{ flex: 1 }}>
-            {renderItem()}
-          </View>
-          <TextInput
+        <ScrollView style={{ flex: 1 }}>
+          <View style={[styles.container, { backgroundColor: selectedColor }]}>
+            <View style={{ flex: 1 }}>
+              {renderItem()}
+            </View>
+            <TextInput
               autoCapitalize='words'
               enablesReturnKeyAutomatically={true}
               keyboardAppearance='dark'
@@ -77,6 +85,7 @@ return (
               placeholderTextColor={'black'}
               placeholder='Title'
               style={styles.title}
+              value={title}
               onChangeText={(text) => handleTitle(text)}
             />
             <TextInput
@@ -87,13 +96,14 @@ return (
               placeholder='Note'
               style={styles.note}
               cursorColor={'white'}
+              value={note}
               onChangeText={(text) => handleNote(text)}
 
             />
             <View>
-               
+
             </View>
-        </View>
+          </View>
         </ScrollView>
       </View>
       <NotesFooter

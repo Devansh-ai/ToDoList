@@ -8,13 +8,11 @@ const AddButton = ({ onPress }: { onPress: any }) => {
     <View>
       <View style={styles.touchable}>
         <TouchableOpacity style={styles.outer} onPress={onPress}>
-
           <Image
             source={icons.add}
             style={styles.button}
             tintColor={'white'}
           />
-
         </TouchableOpacity>
       </View>
     </View>

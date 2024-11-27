@@ -1,67 +1,42 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 interface ConfigModal {
-  title:any,
-  notes:any,
+  item: {
+    title: string;
+    notes: string;
+  }[];
 }
 
-type ActionType = {
-  type: string;
-  payload: any;
-};
-
 let initialState: ConfigModal = {
-  title:[],
-  notes:[],
-
+  item: []
 };
 
 const ConfigSlice = createSlice({
   name: 'Config',
   initialState,
   reducers: {
-    addNotes:(state,action)=>{
-      const data=action.payload
-      state.notes.push(data.notes);
-      state.title.push(data.title);
+    deleteNotes:(state,action)=>{
+      console.log("action",action)
+      console.log("stateitem",state.item[action.payload])
+      state.item.splice(action.payload,1)
+      
+    },
+    addNotes: (state, action) => {
+      const data: any = action.payload;
+      state.item.push(data);
+    },
+    editNotes: (state, action) => {
+      const { id, item } = action.payload;
+      state.item[id].note = action.payload.item.note;
+      state.item[id].title = action.payload.item.title;
     }
-    // addFunds: (state, action) => {
-    //   const data: { addFund: number } = action.payload
-    //   // console.log(data, "payload")
-    //   state.funds.push(data)
-
-    //   state.totalfunds += Number(data.addFund)
-    // },
-    // addexpenses: (state, action) => {
-    //   const data = action.payload
-    //   if (data.type == "Food") {
-    //     state.Food += Number(data.addExpense)
-    //   }
-    //   else if (data.type == "Transport") {
-    //     state.Transport += Number(data.addExpense)
-    //   }
-    //   else if (data.type == "Shopping") {
-    //     state.Shopping += Number(data.addExpense)
-    //   }
-    //   else if (data.type == "Education") {
-    //     state.Education += Number(data.addExpense)
-    //   }
-    //   state.expenses.push(data)
-    //   state.totalexpenses += Number(data.addExpense)
-    // }
-
-  },
-
-  // selectors: {
-  //   getProducts: (state: ConfigModal) => state.products,
-  // },
+  }
 });
 
-// export const {getProducts} = ConfigSlice.selectors;
-
 export const {
-  addNotes
+  addNotes,
+  editNotes,
+  deleteNotes
 } = ConfigSlice.actions;
 
 export default ConfigSlice.reducer;

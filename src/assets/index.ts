@@ -25,6 +25,8 @@ const icons =
     label: require('./icons/tag.png'),
     help: require('./icons/question.png'),
     bar: require('./icons/bar.png'),
+    bulb: require('./icons/bulb.png'),
+    setting: require('./icons/setting.png'),
 
 };
 export { images, icons }

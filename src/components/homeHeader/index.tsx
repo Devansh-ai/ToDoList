@@ -3,36 +3,20 @@ import React, { useState } from 'react'
 import { icons } from '../../assets'
 import { colors } from '../../utils/color'
 
-/**
- * 
- *  <Flatlist 
- *   numColumns={
- *   isGrid ? 2 : 1
- * }
- * 
- * renderItem = {
- * (item) => {
- *   <View style={{
- *   mh: isGrid ? 10 : 20,
- *   flex: 1
- * }}>
- * </View>
- * )}}
- * />
-     
-      */
+const HomeHeader = ({ onPress, view, onPressDrawer }: { onPress: any, view: any, onPressDrawer: any }) => {
 
-const HomeHeader = ({onPress,view}:{onPress:any,view:any}) => {
 
- 
   return (
     <View style={styles.header}>
+      <TouchableOpacity onPress={onPressDrawer}>
 
-      <Image
-        source={icons.bar}
-        tintColor={colors.secondaryBg}
-        style={styles.image}
-      />
+        <Image
+          source={icons.bar}
+          tintColor={colors.secondaryBg}
+          style={styles.image}
+        />
+      </TouchableOpacity>
+
       <View style={styles.container}>
         <TextInput
           placeholder='Search'
@@ -41,16 +25,13 @@ const HomeHeader = ({onPress,view}:{onPress:any,view:any}) => {
         />
       </View>
       <TouchableOpacity onPress={onPress}>
-        {/* <Image
-          source={icons.tabView1}
-        /> */}
         {view ? (<Image
-        style={styles.viewIcon}
-        source={icons.tabView1}
-        />):(<Image
-        style={styles.viewIcon}
+          style={styles.viewIcon}
+          source={icons.tabView1}
+        />) : (<Image
+          style={styles.viewIcon}
           source={icons.tabView2}
-          />)}
+        />)}
       </TouchableOpacity>
     </View>
   )
@@ -60,13 +41,13 @@ export default HomeHeader
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 const styles = StyleSheet.create({
-  viewIcon:{
+  viewIcon: {
     height: 25,
     width: 25,
     // margin: ,
-    resizeMode:'contain',
-    tintColor:colors.secondaryBg,
-    marginTop:7,
+    resizeMode: 'contain',
+    tintColor: colors.secondaryBg,
+    marginTop: 7,
 
 
   },
@@ -74,13 +55,9 @@ const styles = StyleSheet.create({
     padding: 5,
     height: SCREEN_HEIGHT * 0.035,
     width: SCREEN_WIDTH * .8,
-    // borderWidth:2,
-    // borderRadius:15,
-    // backgroundColor:'kjbred'
   },
   header: {
     flexDirection: 'row',
-    flex: 1,
   },
   container: {
     backgroundColor: 'white',

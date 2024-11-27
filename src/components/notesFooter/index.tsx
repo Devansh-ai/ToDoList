@@ -73,7 +73,6 @@ const NotesFooter = (props: any) => {
                         container: {
                             borderRadius: 20,
                             backgroundColor: '#f2f2f2',
-                            //marginBottom: 40,
                         },
                     }}
 
@@ -87,9 +86,6 @@ const NotesFooter = (props: any) => {
                     imageUploadPress={(uri: any) => {
                         props?.imageUploadPress(uri)
                     }}
-                    // audioUploadPress={(uri:string)=>{
-                    //     props?.audioUploadPress(uri)
-                    // }}
                     visible={isModalVisible}
                     ondismiss={toggleModal}
                 />
