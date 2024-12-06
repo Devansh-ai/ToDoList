@@ -6,14 +6,100 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../utils/color';
+import AudioRecorderPlayer, {
+    AudioEncoderAndroidType,
+    AudioSourceAndroidType,
+    AVModeIOSOption,
+    AVEncoderAudioQualityIOSType,
+    AVEncodingOption,
+} from 'react-native-audio-recorder-player';
+import RNFS from 'react-native-fs';
+import SoundPlayer from 'react-native-sound-player';
 
 
 
-
-const UploadModal = ({ visible, ondismiss, imageUploadPress }: { imageUploadPress: any, visible: any, ondismiss: any }) => {
+const UploadModal = ({ visible, ondismiss, imageUploadPress,handleCanvasPress }: { handleCanvasPress:any,imageUploadPress: any, visible: any, ondismiss: any }) => {
     const navigation = useNavigation();
     const [imageUri, setImageUri] = useState<string | null>('');
     const [audioUri, setAudioUri] = useState<string | null>('');
+    const [isRecording, setIsRecording] = useState(false);
+    const [audioPath, setAudioPath] = useState('');
+    const [audio, setAudio] = useState({});
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRecorderPlayer = new AudioRecorderPlayer();
+
+    useEffect(()=>{
+        console.log(audio, "<<<<<");
+    },[audio])
+
+    const generateAudioName = () => {
+        let num: any = (Math.floor(Math.random() * 100))
+        let fileName: string = "devansh".concat(num);
+        // console.log("name",fileName)
+        return fileName;
+    };
+    const startRecording = async () => {
+        const path = `${generateAudioName()}.aac`;
+        console.log("first", path)
+        const audioSet = {
+            AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
+            AudioSourceAndroid: AudioSourceAndroidType.MIC,
+            AVModeIOS: AVModeIOSOption.measurement,
+            AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
+            AVNumberOfChannelsKeyIOS: 2,
+            AVFormatIDKeyIOS: AVEncodingOption.aac,
+        };
+        // console.log("first",audioSet)
+        const meteringEnabled = false;
+        // await setCountdown(0);
+        // await setSeconds(0);
+        // await setMinutes(0);
+        // setStartCountdown(true);
+
+      const onStopRecord = async () => {
+        
+            const result = await audioRecorderPlayer.stopRecorder();
+            audioRecorderPlayer.removeRecordBackListener();
+            setAudio({
+              recordSecs: 0,
+            });
+            console.log(result);
+          };
+
+       const  onStartRecord = async () => {
+        const result = await audioRecorderPlayer.startRecorder();
+           audioRecorderPlayer.addRecordBackListener((e) => {
+             setAudio({
+                recordSecs: e.currentPosition,
+                recordTime:audioRecorderPlayer.mmssss(
+                  Math.floor(e.currentPosition),
+                ),
+              });
+              return;
+            });
+            console.log(result, "<<<<<<<<<<<");
+          };
+          
+
+        try {
+            onStartRecord()
+           
+            
+        } catch (error) {
+            console.error("1", error);
+        }
+    };
+
+    const stopRecording = async () => {
+        try {
+            const result = await audioRecorderPlayer.stopRecorder();
+            setIsRecording(false);
+            console.log('Uri at', result);
+        } catch (error) {
+            console.error("2", error);
+        }
+    };
+
     const toggleModal = () => {
         ondismiss()
     };
@@ -46,6 +132,10 @@ const UploadModal = ({ visible, ondismiss, imageUploadPress }: { imageUploadPres
         });
 
     };
+    const onCanvasPress=()=>{
+        handleCanvasPress();
+        toggleModal();
+    }
 
     const handleTakePhoto = () => {
         console.log('launch camera');
@@ -119,7 +209,7 @@ const UploadModal = ({ visible, ondismiss, imageUploadPress }: { imageUploadPres
 
 
 
-                            <TouchableOpacity style={styles.modalButton}
+                            <TouchableOpacity style={styles.modalButton} onPress={onCanvasPress}
                             >
                                 <Image
                                     source={icons.draw}
@@ -132,7 +222,7 @@ const UploadModal = ({ visible, ondismiss, imageUploadPress }: { imageUploadPres
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.modalButton}
-                                onPress={handleSelectedAudio}>
+                                onPress={isRecording ? stopRecording : startRecording}>
                                 <Image
                                     source={icons.mic}
                                     style={styles.buttonIcon}

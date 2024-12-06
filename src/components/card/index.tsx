@@ -2,9 +2,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../utils/color';
 
-const Card = ({ text1, text2 }: { text1: string, text2: string }) => {
+const Card = ({ text1, text2,bgColor }: { text1: string, text2: string ,bgColor:string}) => {
+    console.log("bgcc",bgColor)
     return (
-        <View style={styles.container}>
+        <View style={[styles.container,{backgroundColor:bgColor}]}>
             <Text style={styles.head}>
                 {text1}
             </Text>
@@ -18,7 +19,6 @@ const Card = ({ text1, text2 }: { text1: string, text2: string }) => {
 }
 
 export default Card;
-
 const styles = StyleSheet.create({
     head: {
         fontSize: 20,
@@ -28,11 +28,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        padding: 10,
+        padding: 20,
         margin: 10,
         borderRadius: 20,
+        // alignSelf:'center',
         borderColor: colors.secondaryBg,
-
+        // backgroundColor:,
         borderWidth: 2
 
 

@@ -1,4 +1,4 @@
-import { Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Linking, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../../utils/color'
 import { drawer } from '../../../utils/Strings'
@@ -6,6 +6,10 @@ import { icons } from '../../../assets'
 import { useNavigation } from '@react-navigation/native'
 
 const CustomDrawer = ({ navigation }: { navigation: any }) => {
+    const handleOpenLink = () => {
+        const url = 'https://support.google.com/keep/?hl=en#topic=6262468';
+        Linking.openURL(url).catch(err => console.error("Failed to open URL:", err));
+    };
     return (
         <View style={styles.container}>
             <View>
@@ -68,7 +72,7 @@ const CustomDrawer = ({ navigation }: { navigation: any }) => {
                     {drawer.set}
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonHead}>
+            <TouchableOpacity style={styles.buttonHead} onPress={handleOpenLink}>
                 <Image
                     source={icons.help}
                     style={styles.icon}

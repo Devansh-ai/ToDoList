@@ -17,6 +17,7 @@ const icons =
     photo: require('./icons/camera2.png'),
     image: require('./icons/image.png'),
     draw: require('./icons/draw.png'),
+    resultnf: require('./icons/resultNotFound.png'),
     tick: require('./icons/check-box.png'),
     delete: require('./icons/delete.png'),
     copy: require('./icons/copy.png'),
@@ -27,6 +28,7 @@ const icons =
     bar: require('./icons/bar.png'),
     bulb: require('./icons/bulb.png'),
     setting: require('./icons/setting.png'),
+    heartFilled: require('./icons/heartFilled.png'),
 
 };
 export { images, icons }

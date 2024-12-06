@@ -53,6 +53,7 @@ const NotesFooter = (props: any) => {
                     />
                 </TouchableOpacity>
                 <OptionsModal
+                    deleteOperation={props.deleteOperation}
                     visible={isModalOpVisible}
                     ondismiss={toggleModalOp}
                 />
@@ -88,6 +89,7 @@ const NotesFooter = (props: any) => {
                     }}
                     visible={isModalVisible}
                     ondismiss={toggleModal}
+                    handleCanvasPress={props?.handleCanvasPress}
                 />
             </View>
         </View>

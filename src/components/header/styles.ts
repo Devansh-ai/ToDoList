@@ -22,14 +22,14 @@ export const styles = StyleSheet.create({
         width: 40,
     },
     imagePin: {
-        height: 35,
-        width: 35,
-        resizeMode: 'cover',
-        transform: [{ rotate: '-45deg' }]
+        height: 30,
+        width: 30,
+        // resizeMode: 'cover',
+        // transform: [{ rotate: '-45deg' }]
     },
     imageIcon: {
-        height: 35,
-        width: 35,
+        height: 30,
+        width: 30,
         resizeMode: 'contain',
         marginHorizontal: 18,
     },

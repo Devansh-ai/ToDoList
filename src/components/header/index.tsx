@@ -1,10 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { icons } from '../../assets'
 import { styles } from './styles'
 import { colors } from '../../utils/color'
 
 const Header = ({ onPress }: { onPress: any }) => {
+   const [isSelected,setIsSeleted]=useState<boolean>(false)
+   const handleOnPress=()=>{
+      setIsSeleted(!isSelected)
+   }
+
    return (
       <View style={styles.main}>
 
@@ -21,10 +26,10 @@ const Header = ({ onPress }: { onPress: any }) => {
                />
             </TouchableOpacity>
             <View style={styles.right}>
-               <TouchableOpacity>
+               <TouchableOpacity onPress={handleOnPress}>
 
                   <Image
-                     source={icons.pin}
+                     source={isSelected?icons.heartFilled:icons.pin}
                      resizeMode='contain'
                      tintColor={colors.secondaryBg}
                      style={styles.imagePin}

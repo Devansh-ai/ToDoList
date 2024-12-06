@@ -7,10 +7,15 @@ import { colors } from '../../utils/color';
 
 
 
-const OptionsModal = ({ visible, ondismiss }: { visible: any, ondismiss: any }) => {
+const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, ondismiss: any, deleteOperation: any }) => {
     const [isModalVisible, setisModalVisible] = useState<boolean>(visible)
     const toggleModal = () => {
         ondismiss()
+    };
+    const handleDelete = () => {
+        deleteOperation(); // Call the delete operation
+        setisModalVisible(false); // Close the modal after delete operation
+        toggleModal(); // Optionally call this to close the modal as well
     };
     const handleOpenLink = () => {
         const url = 'https://support.google.com/keep/?hl=en#topic=6262468';
@@ -31,7 +36,7 @@ const OptionsModal = ({ visible, ondismiss }: { visible: any, ondismiss: any }) 
                     <View style={styles.modalContent}>
                         <View style={styles.modalContainer}>
 
-                            <TouchableOpacity style={styles.modalButton}>
+                            <TouchableOpacity style={styles.modalButton} onPress={handleDelete}>
                                 <Image
                                     source={icons.delete}
                                     style={styles.buttonIcon}

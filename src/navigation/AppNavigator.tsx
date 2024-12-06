@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import HomeScreen from '../screens/homeScreen';
 import NotesScreen from '../screens/notesScreen';
 import { MyDrawer } from './DrawerNavigation';
+import SearchScreen from '../screens/searchScreen';
 
 
 export default class AppNavigator extends Component {
@@ -15,13 +16,14 @@ export default class AppNavigator extends Component {
         const Stack = createNativeStackNavigator();
 
         return (
-            <NavigationContainer >
+            // <NavigationContainer >
                 <Stack.Navigator initialRouteName='Drawer' screenOptions={{ headerShown: false }}>
                     <Stack.Screen name='HomeScreen' component={HomeScreen} />
                     <Stack.Screen name='NotesScreen' component={NotesScreen} />
+                    <Stack.Screen name='SearchScreen' component={SearchScreen} />
                     <Stack.Screen name='Drawer' component={MyDrawer} />
                 </Stack.Navigator>
-            </NavigationContainer>
+            // </NavigationContainer>
         )
     }
 }
