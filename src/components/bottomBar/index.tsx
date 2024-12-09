@@ -2,7 +2,6 @@ import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'rea
 import React from 'react'
 import { icons } from '../../assets'
 import { styles } from './styles'
-import { useNavigation } from '@react-navigation/native'
 import { colors } from '../../utils/color'
 
 const BottomBar = () => {

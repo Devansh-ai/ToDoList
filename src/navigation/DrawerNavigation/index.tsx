@@ -10,7 +10,7 @@ export function MyDrawer() {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer{...props} />}
       screenOptions={{ headerShown: false }} >
-      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
     </Drawer.Navigator>
   );
 }

@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View, Modal, Pressable, TouchableOpacity, Image, Linking } from 'react-native'
 import React, { useState } from 'react'
-import { modal2 } from '../../utils/Strings';
-import { icons } from '../../assets';
-import { colors } from '../../utils/color';
-
-
-
+import { modal2 } from '../../../utils/Strings';
+import { icons } from '../../../assets';
+import { colors } from '../../../utils/color';
+import { styles } from './styles';
 
 const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, ondismiss: any, deleteOperation: any }) => {
     const [isModalVisible, setisModalVisible] = useState<boolean>(visible)
@@ -13,9 +11,9 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
         ondismiss()
     };
     const handleDelete = () => {
-        deleteOperation(); // Call the delete operation
-        setisModalVisible(false); // Close the modal after delete operation
-        toggleModal(); // Optionally call this to close the modal as well
+        deleteOperation();
+        setisModalVisible(false);
+        toggleModal();
     };
     const handleOpenLink = () => {
         const url = 'https://support.google.com/keep/?hl=en#topic=6262468';
@@ -125,41 +123,4 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
 
 export default OptionsModal;
 
-const styles = StyleSheet.create({
-    modalContainer: {
-        marginTop: 10,
-        marginBottom: 20,
-    },
-    modalContent: {
-        backgroundColor: colors.theme,
-        borderRadius: 12,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        justifyContent: 'flex-end',
-    },
-    buttonIcon: {
-        height: 25,
-        width: 25,
-    },
-    modalButtonText: {
-        fontSize: 20,
-        fontWeight: '600',
-        paddingLeft: 8,
-        color: colors.secondaryBg,
-    },
-    modalButton: {
-        flexDirection: 'row',
-        padding: 30,
-    },
-    modalButtonTextDelete:
-    {
-        fontSize: 20,
-        fontWeight: '600',
-        paddingLeft: 8,
-        color: colors.secondaryBg,
 
-    },
-
-})

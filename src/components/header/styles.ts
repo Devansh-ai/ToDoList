@@ -24,8 +24,6 @@ export const styles = StyleSheet.create({
     imagePin: {
         height: 30,
         width: 30,
-        // resizeMode: 'cover',
-        // transform: [{ rotate: '-45deg' }]
     },
     imageIcon: {
         height: 30,

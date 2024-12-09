@@ -16,14 +16,12 @@ export default class AppNavigator extends Component {
         const Stack = createNativeStackNavigator();
 
         return (
-            // <NavigationContainer >
-                <Stack.Navigator initialRouteName='Drawer' screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name='HomeScreen' component={HomeScreen} />
-                    <Stack.Screen name='NotesScreen' component={NotesScreen} />
-                    <Stack.Screen name='SearchScreen' component={SearchScreen} />
-                    <Stack.Screen name='Drawer' component={MyDrawer} />
-                </Stack.Navigator>
-            // </NavigationContainer>
+            <Stack.Navigator initialRouteName='Drawer' screenOptions={{ headerShown: false }}>
+                {/* <Stack.Screen name='HomeScreen' component={HomeScreen} /> */}
+                <Stack.Screen name='NotesScreen' component={NotesScreen} />
+                <Stack.Screen name='SearchScreen' component={SearchScreen} />
+                <Stack.Screen name='Drawer' component={MyDrawer} />
+            </Stack.Navigator>
         )
     }
 }

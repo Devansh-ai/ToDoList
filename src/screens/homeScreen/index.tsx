@@ -9,10 +9,7 @@ import HomeHeader from '../../components/homeHeader';
 import Card from '../../components/card';
 import { addNotes, deleteNotes } from '../../Redux/config/configSlice';
 import { colors } from '../../utils/color';
-
-
-
-
+import { styles } from './styles';
 interface Item {
   title: string;
   note: string;
@@ -24,33 +21,28 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
   const inset = useSafeAreaInsets();
   const [view, setView] = useState(1);
-  const bgcColor:any=["#EB9DA2","#F0B884","#E8E6A5","#BBE8B5","ACBBE8","C5ACE8"]
-
-  // dispatch(addNotes({ title:"Welcome to the notes App", note:"Here you  can add notes as per your requirement" }))
-  // dispatch(addNotes({ title:"Welcome to the notes App", note:"Here you  can add notes as per your requirement" }))
-  // dispatch(addNotes({ title:"Welcome to the notes App", note:"Here you  can add notes as per your requirement" }))
-
-    // console.log("first",item)
+  const bgcColor: any = ["#EB9DA2", "#F0B884", "#E8E6A5", "#BBE8B5", "ACBBE8", "C5ACE8"]
+  
   const handlePress = () => {
     navigation.navigate('NotesScreen',
     );
   };
-  const onSearchPress=()=>{
+  const onSearchPress = () => {
     navigation.navigate('SearchScreen');
   }
   
   const onCardPress = (index: any, items: any) => {
-    // console.log("???????????????",item[index])
-    const id=item[index].uniqueId
+    const id = item[index].uniqueId
+    console.log("first1",items)
+
     navigation.navigate('NotesScreen', { id: id, items: items, flag: true });
   };
 
   const handleView = () => {
-    setView(view===2?1:2);
+    setView(view === 2 ? 1 : 2);
   };
 
   const deleteItem = (cardIndex: any) => {
-    // dispatch({ type: 'DELETE_NOTE', payload: rowKey });
     dispatch(deleteNotes(cardIndex));
   };
 
@@ -60,29 +52,29 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
         onPress={() => onCardPress(data.index, data.item)}
       >
 
-        <View style={[styles.rowFront,{width:SCREEN_WIDTH/view
-}]}>
-          <Card text1={data.item.title} text2={data.item.note} bgColor={ data.item.bgColor} />
+        <View style={[styles.rowFront, {
+          width: SCREEN_WIDTH / view
+        }]}>
+          <Card text1={data.item.title} text2={data.item.note} bgColor={data.item.bgColor} />
         </View>
       </TouchableOpacity>
     )
   };
 
   const renderHiddenItem = (data: any) => {
-      // console.log(rowMap,"data")
-    return(
-    <View style={styles.rowBack}>
-      <TouchableOpacity
-        style={styles.backRightBtn}
-        onPress={() => deleteItem(data.index)}
-      >
-        <Text style={styles.backTextWhite}>Delete</Text>
-      </TouchableOpacity>
-    </View>
-  );}
+    return (
+      <View style={styles.rowBack}>
+        <TouchableOpacity
+          style={styles.backRightBtn}
+          onPress={() => deleteItem(data.index)}
+        >
+          <Text style={styles.backTextWhite}>Delete</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
   const onPressDrawer = () => {
-navigation.openDrawer();
-    // console.log("first")
+    navigation.openDrawer();
   }
 
   return (
@@ -92,110 +84,33 @@ navigation.openDrawer();
         onSearchPress={onSearchPress}
       />
       <View
-       style={{ marginTop:20 }} 
-       />
-        {/* {view?(  */}
-        <SwipeListView
-  data={item}
-  disableRightSwipe
-  renderItem={renderItem}
-  renderHiddenItem={renderHiddenItem}
-  rightOpenValue={-75}
-  leftOpenValue={0}
-  key={view}
-  keyExtractor={(item, index) => index.toString()}
-  numColumns={view}
-  closeOnRowPress={true}        // Closes row on pressing the main item
-  disableLeftSwipe={false}      // Enable left swipe if you want
-  swipeToOpenPercent={30}       // Row will open only after swiping 30% of its width
-  stopLeftSwipe={-75}           // Limits how far the row can be swiped
-  closeOnRowBeginSwipe={true}   // Closes other rows when a row begins swipe
-  previewOpenDelay={0}          // Remove the preview delay
-  // previewRowKey={null}          // Remove the preview functionality
-  previewOpenValue={0}          // Remove the preview open value
-  swipeToClosePercent={30}      // Row will close when swiped back 30%
-  recalculateHiddenLayout={true} // Ensures hidden item layout is correct
-/>
-      
-      {/* ):(
-        <SwipeListView
-        data={item}
-      disableRightSwipe
-      numColumns={2}
-        // rightActivationValue={}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        rightOpenValue={-75}
-        leftOpenValue={0}
-        // rightOpenValue={-Dimensions.get('window').width}
-          // onSwipeValueChange={onRowOpen}
-        previewRowKey={'0'}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-
-        keyExtractor={(item, index) => index.toString()}
+        style={{ marginTop: 20 }}
       />
-      )} */}
-      {/* <SwipeListView
+      <SwipeListView
         data={item}
-      disableRightSwipe
-        // rightActivationValue={}
+        disableRightSwipe
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         rightOpenValue={-75}
         leftOpenValue={0}
-        // rightOpenValue={-Dimensions.get('window').width}
-          // onSwipeValueChange={onRowOpen}
-        previewRowKey={'0'}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-
+        key={view}
         keyExtractor={(item, index) => index.toString()}
-      /> */}
-      {/* <BottomBar /> */}
+        numColumns={view}
+        closeOnRowPress={true}
+        disableLeftSwipe={false}
+        swipeToOpenPercent={30}
+        stopLeftSwipe={-75}
+        closeOnRowBeginSwipe={true}
+        previewOpenDelay={0}
+        previewOpenValue={0}
+        swipeToClosePercent={30}
+        recalculateHiddenLayout={true}
+      />
       <AddButton onPress={handlePress} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor:colors.mainBg,
-    flex: 1,
-  },
-  rowFront: {
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    // height: 'auto',
-    // padding:1,
-      height:SCREEN_HEIGHT*0.09
 
-  
-  },
-  rowBack: {
-    alignItems: 'center',
-    backgroundColor: '#DDD',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingLeft: 15,
-    height:SCREEN_HEIGHT*0.09
-
-  },
-  backRightBtn: {
-    alignItems: 'center',
-    bottom: 0,
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    width: 75,
-    backgroundColor: 'red',
-    right: 0,
-  },
-
-  backTextWhite: {
-    color: '#FFF',
-  },
-});
 
 export default HomeScreen;

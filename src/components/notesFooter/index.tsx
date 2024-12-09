@@ -3,11 +3,11 @@ import React, { useRef, useState } from 'react'
 import { styles } from './styles'
 import { icons } from '../../assets'
 import { notesFooter } from '../../utils/Strings'
-import UploadModal from '../modals/UploadModal'
-import OptionsModal from '../modals/OptionsModal'
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Colors from '../Colors'
 import { colors } from '../../utils/color'
+import UploadModal from '../modals/modal1'
+import OptionsModal from '../modals/modal2'
 
 const NotesFooter = (props: any) => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -26,11 +26,10 @@ const NotesFooter = (props: any) => {
     return (
         <View style={styles.containerHead}>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.button} onPress={toggleModal}>
+                <TouchableOpacity onPress={toggleModal}>
                     <Image
                         source={icons.add1}
                         tintColor={colors.secondaryBg}
-
                         style={styles.addIcon}
                     />
                 </TouchableOpacity>
@@ -39,6 +38,16 @@ const NotesFooter = (props: any) => {
                         source={icons.palette}
                         tintColor={colors.secondaryBg}
                         style={styles.addIcon}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={props?.handleAudioPress}
+                    style={styles.audioButton}
+                >
+                    <Image
+                        source={props.isRecording ? icons.stop : icons.micAudio}
+                        tintColor={colors.secondaryBg}
+                        style={styles.audioIcon}
                     />
                 </TouchableOpacity>
                 <Text style={styles.text}>
@@ -76,9 +85,7 @@ const NotesFooter = (props: any) => {
                             backgroundColor: '#f2f2f2',
                         },
                     }}
-
                 >
-
                     <Colors onColorOptionPress={(item: any, index: any) => {
                         props?.onColorOptionPress(item)
                     }} />
@@ -96,5 +103,4 @@ const NotesFooter = (props: any) => {
     )
 }
 
-export default NotesFooter
-
+export default NotesFooter;

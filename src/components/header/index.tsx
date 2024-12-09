@@ -5,8 +5,8 @@ import { styles } from './styles'
 import { colors } from '../../utils/color'
 
 const Header = ({ onPress }: { onPress: any }) => {
-   const [isSelected,setIsSeleted]=useState<boolean>(false)
-   const handleOnPress=()=>{
+   const [isSelected, setIsSeleted] = useState<boolean>(false)
+   const handleOnPress = () => {
       setIsSeleted(!isSelected)
    }
 
@@ -29,7 +29,7 @@ const Header = ({ onPress }: { onPress: any }) => {
                <TouchableOpacity onPress={handleOnPress}>
 
                   <Image
-                     source={isSelected?icons.heartFilled:icons.pin}
+                     source={isSelected ? icons.heartFilled : icons.pin}
                      resizeMode='contain'
                      tintColor={colors.secondaryBg}
                      style={styles.imagePin}

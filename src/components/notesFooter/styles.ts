@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: Dimensions.get('screen').height * 0.02,
         bottom: 30,
+        paddingLeft: Dimensions.get('screen').width * 0.05,
     },
     addIcon: {
 
@@ -20,17 +21,25 @@ export const styles = StyleSheet.create({
         aspectRatio: 1,
 
     },
-    button: {
-        marginLeft: 19,
+    audioButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 8,
+    },
+    audioIcon: {
+        width: 25,
+        height: 25,
+        resizeMode: 'contain',
     },
     dotIcon: {
         height: 35,
         aspectRatio: 1,
-        left: 45,
+        left: Dimensions.get('screen').width * .01,
     },
     text: {
         color: colors.secondaryBg,
         fontSize: 16,
         marginTop: 10,
+        marginHorizontal: 10,
     }
 })

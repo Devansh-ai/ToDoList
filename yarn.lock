@@ -3253,11 +3253,9 @@ __metadata:
     react-native: 0.76.1
     react-native-audio-recorder-player: ^3.6.12
     react-native-canvas: ^0.1.40
-    react-native-document-picker: ^9.3.1
     react-native-fs: ^2.20.0
     react-native-gesture-handler: ^2.21.2
     react-native-image-picker: ^7.1.2
-    react-native-new-image-picker: ^0.1.9
     react-native-permissions: ^5.1.0
     react-native-raw-bottom-sheet: ^3.0.0
     react-native-reanimated: ^3.16.3
@@ -8513,22 +8511,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-document-picker@npm:^9.3.1":
-  version: 9.3.1
-  resolution: "react-native-document-picker@npm:9.3.1"
-  dependencies:
-    invariant: ^2.2.4
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-    react-native-windows: "*"
-  peerDependenciesMeta:
-    react-native-windows:
-      optional: true
-  checksum: 5979e4b93f15e0568ae70b70cc2304cd727f20939a58412d483517942df6d3cf3821319b3b7934bcaa2866ed1918ef9e8de9933ce6953209340abe3455403e0d
-  languageName: node
-  linkType: hard
-
 "react-native-drawer-layout@npm:^4.0.2":
   version: 4.0.2
   resolution: "react-native-drawer-layout@npm:4.0.2"
@@ -8581,13 +8563,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: af52328b7cb06c28549442f0d923cfa92dde8d5a968a642336df4c882f81adbf0e5e606a14de27f96883a76fa1e03230061c4080011c9107942edebc8e09c478
-  languageName: node
-  linkType: hard
-
-"react-native-new-image-picker@npm:^0.1.9":
-  version: 0.1.9
-  resolution: "react-native-new-image-picker@npm:0.1.9"
-  checksum: eb07f032d3f27a9e9646232813b0039d32b885b510465a42f5f1dd68468d6215ed1dea6b90e588bb6b86476ea8792fd125ac622bc44b2616fca30f9ebcae39ed
   languageName: node
   linkType: hard
 

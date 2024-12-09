@@ -1,71 +1,90 @@
-import { ensureIsArray } from './../../../node_modules/reselect/src/utils';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface ConfigModal {
   item: {
     title: string;
     note: string;
-    uniqueId:number;
+    uniqueId: number;
+    imageUri: string[];
+    bgColor: string;
+    audioFiles: string[];
   }[];
   deletedItem: {
     title: string;
     note: string;
+    uniqueId: number;
+    imageUri: string[];
+    bgColor: string;
+    audioFiles: string[];
   }[];
 }
 
 let initialState: ConfigModal = {
   item: [],
   deletedItem: [],
-
 };
 
 const ConfigSlice = createSlice({
   name: 'Config',
   initialState,
   reducers: {
-
     deleteNotes: (state, action) => {
-      const id  = action.payload; // id is the uniqueId of the note to be deleted
-        
-      // Find the note to delete from the item array
-      console.log("devansh",id)
+      const id = action.payload;
+      console.log("devansh", id);
       const noteIndex = state.item.findIndex(note => note.uniqueId === id);
-      // If the note exists, move it to deleted array and remove it from item array
       if (noteIndex >= 0) {
-        const deletedNote = state.item.splice(noteIndex, 1)[0];  // Remove the note from item
-
-        // Add the deleted note to the deleted array
+        const deletedNote = state.item.splice(noteIndex, 1)[0];
         state.deletedItem.push(deletedNote);
       } else {
         console.error(`Note with uniqueId ${id} not found`);
       }
     },
     addNotes: (state, action) => {
-      console.log("/////////////",action.payload)
       const data: any = action.payload;
-      state.item.push(data);
+      const newNote = {
+        ...data,
+        audioFiles: data.audioFiles || [],
+      };
+      state.item.push(newNote);
     },
-     editNotes : (state, action) => {
-      // console.log("Edit Payload:", action.payload);
-    
+    editNotes: (state, action) => {
       const { id, item } = action.payload;
-    
-
       const noteIndex = state.item.findIndex(note => note.uniqueId === id);
-    
+
+      if (noteIndex !== -1) {
         state.item[noteIndex].note = item.note;
         state.item[noteIndex].title = item.title;
 
-      
-    }
-    
-  }
+        if (item.imageUri) {
+          state.item[noteIndex].imageUri = item.imageUri;
+        }
+        if (item.bgColor) {
+          state.item[noteIndex].bgColor = item.bgColor;
+        }
+
+        if (item.audioFiles !== undefined) {
+          state.item[noteIndex].audioFiles = item.audioFiles;
+        }
+      }
+    },
+    recoverNotes: (state, action) => {
+      const index = action.payload;
+      if (index >= 0 && index < state.deletedItem.length) {
+        // Remove from deletedItem and add to item array
+        const recoveredNote = state.deletedItem.splice(index, 1)[0];
+        state.item.push(recoveredNote);
+      } else {
+        console.error(`Note at index ${index} not found in deleted items`);
+      }
+    },
+  },
 });
 
 export const {
   addNotes,
   editNotes,
-  deleteNotes
+  deleteNotes,
+  recoverNotes,
 } = ConfigSlice.actions;
 
 export default ConfigSlice.reducer;

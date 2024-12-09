@@ -1,6 +1,4 @@
 import { Dimensions, StyleSheet } from "react-native"
-import { colors } from "../../utils/color";
-
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 

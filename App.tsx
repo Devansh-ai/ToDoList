@@ -23,7 +23,6 @@ const App = () => {
 
         <SafeAreaProvider style={{ flex: 1 }}>
           <AppNavigator />
-          {/* <Card/> */}
         </SafeAreaProvider>
         </NavigationContainer>
       </PersistGate>

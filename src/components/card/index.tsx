@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../utils/color';
+import { styles } from './styles';
 
 const Card = ({ text1, text2,bgColor }: { text1: string, text2: string ,bgColor:string}) => {
     console.log("bgcc",bgColor)
@@ -9,7 +10,7 @@ const Card = ({ text1, text2,bgColor }: { text1: string, text2: string ,bgColor:
             <Text style={styles.head}>
                 {text1}
             </Text>
-            <Text>
+            <Text >
                 {text2}
             </Text>
 
@@ -19,23 +20,3 @@ const Card = ({ text1, text2,bgColor }: { text1: string, text2: string ,bgColor:
 }
 
 export default Card;
-const styles = StyleSheet.create({
-    head: {
-        fontSize: 20,
-        color: 'black',
-        fontWeight: '600',
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 20,
-        margin: 10,
-        borderRadius: 20,
-        // alignSelf:'center',
-        borderColor: colors.secondaryBg,
-        // backgroundColor:,
-        borderWidth: 2
-
-
-    },
-})

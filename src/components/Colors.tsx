@@ -1,6 +1,5 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { colors } from '../utils/color';
 
 
 const Colors = (props: any) => {
@@ -15,7 +14,6 @@ const Colors = (props: any) => {
         "thistle",
         "peachpuff"
     ]; const renderItem = (item: any, index: number) => {
-        // console.log(item, "fffffffffff")
         return (
             <Pressable onPress={() => {
                 props?.onColorOptionPress(item, index)

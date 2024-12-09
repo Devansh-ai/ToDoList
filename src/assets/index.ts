@@ -27,6 +27,10 @@ const icons =
     help: require('./icons/question.png'),
     bar: require('./icons/bar.png'),
     bulb: require('./icons/bulb.png'),
+    play: require('./icons/play.png'),
+    pause: require('./icons/pause.png'),
+    stop: require('./icons/stop.png'),
+    micAudio: require('./icons/micAudio.png'),
     setting: require('./icons/setting.png'),
     heartFilled: require('./icons/heartFilled.png'),
 
