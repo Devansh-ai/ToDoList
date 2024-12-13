@@ -31,8 +31,8 @@ const Colors = (props: any) => {
 
     }
     return (
-        <View style={{ flex: 1 }}>
-            <Text style={{ marginLeft: 15, color: '#8758c3', fontSize: 18, fontWeight: '600' }}>Colors</Text>
+        <View style={styles.head}>
+            <Text style={styles.headTxt}>Colors</Text>
             <FlatList
                 horizontal={true}
                 data={colors}
@@ -44,4 +44,15 @@ const Colors = (props: any) => {
 
 export default Colors
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    head: {
+        flex: 1
+    },
+    headTxt:
+    {
+        marginLeft: 15,
+        color: '#8758c3',
+        fontSize: 18,
+        fontWeight: '600'
+    }
+})

@@ -9,7 +9,6 @@ const BottomBar = () => {
     <View style={styles.container}>
       <View style={styles.bottom}>
         <TouchableOpacity >
-
           <Image
             style={styles.image}
             source={icons.pen}
@@ -17,7 +16,6 @@ const BottomBar = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity>
-
           <Image
             source={icons.mic}
             style={styles.image}
@@ -25,7 +23,6 @@ const BottomBar = () => {
           />
         </TouchableOpacity>
         <TouchableOpacity >
-
           <Image
             source={icons.camera}
             style={styles.image}

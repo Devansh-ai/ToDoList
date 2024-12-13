@@ -1,13 +1,14 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { colors } from "../../utils/color";
+
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
-const SCREEN_WIDTH = Dimensions.get('screen').width;
 
 export const styles = StyleSheet.create({
   container: {
     flex:1,
-    // alignItems: 'center',
-    // 
+    borderRadius:20,
+    // height:500
+    flexBasis:1,
 
   },
   audioItem: {
@@ -29,29 +30,22 @@ export const styles = StyleSheet.create({
   },
   title: {
     borderColor: 'white',
-    // aspectRatio: 8,
     marginTop: 15,
-
     width: '98%',
     fontSize: 25,
     padding: 8,
     color: 'black',
-
+    
   },
+  flexrap:{ flexDirection: 'row', flexWrap: 'wrap',margin:5,justifyContent:'center' },
   note: {
+
     alignSelf:'center',
-    // justifyContent:'center',
-    backgroundColor:'red',
     borderColor: 'white',
-    // marginTop: 10,
     width: '99%',
     fontSize: 18,
     padding: 10,
     color: 'black',
-
-    height: SCREEN_HEIGHT * .7,
-    // top:0,
-
-
+// height: SCREEN_HEIGHT * .7,
   },
 })

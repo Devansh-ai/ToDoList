@@ -1,4 +1,4 @@
-import { Alert, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Image,Text, TouchableOpacity, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { styles } from './styles'
 import { icons } from '../../assets'

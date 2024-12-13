@@ -4,10 +4,16 @@ import { icons } from '../../assets'
 import { styles } from './styles'
 import { colors } from '../../utils/color'
 
-const Header = ({ onPress }: { onPress: any }) => {
+/**
+ * 
+ * this is the header of notes screen
+ */
+const Header = ({ onPress,handlePin }: { onPress: any,handlePin:any }) => {
    const [isSelected, setIsSeleted] = useState<boolean>(false)
    const handleOnPress = () => {
       setIsSeleted(!isSelected)
+      handlePin();
+
    }
 
    return (
@@ -27,7 +33,6 @@ const Header = ({ onPress }: { onPress: any }) => {
             </TouchableOpacity>
             <View style={styles.right}>
                <TouchableOpacity onPress={handleOnPress}>
-
                   <Image
                      source={isSelected ? icons.heartFilled : icons.pin}
                      resizeMode='contain'

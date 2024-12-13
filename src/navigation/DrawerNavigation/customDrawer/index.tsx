@@ -1,11 +1,25 @@
-import { Image, Linking, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Linking,Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { colors } from '../../../utils/color'
 import { drawer } from '../../../utils/Strings'
 import { icons } from '../../../assets'
 import { styles } from './styles'
 
+/**
+ * This is a custom drawer thst contains home screen and delete screen
+ * 
+ * 
+ */
 const CustomDrawer = ({ navigation }: { navigation: any }) => {
+    //navigates to homescreen on press of notes button
+    const handlehomepress = () => {
+        navigation.navigate('HomeScreen')
+    }
+    //navigates to deletescreen on press of delete button
+
+    const handleDeletePress = () => {
+        navigation.navigate('DeletedScreen')
+    }
+    //opens link for help and support
     const handleOpenLink = () => {
         const url = 'https://support.google.com/keep/?hl=en#topic=6262468';
         Linking.openURL(url).catch(err => console.error("Failed to open URL:", err));
@@ -17,7 +31,7 @@ const CustomDrawer = ({ navigation }: { navigation: any }) => {
                     Google Keeps
                 </Text>
             </View>
-            <TouchableOpacity style={styles.buttonHead} onPress={() => navigation.navigate('HomeScreen')}>
+            <TouchableOpacity style={styles.buttonHead} onPress={handlehomepress}>
                 <Image
                     source={icons.bulb}
                     style={styles.icon}
@@ -53,7 +67,7 @@ const CustomDrawer = ({ navigation }: { navigation: any }) => {
                     {drawer.archive}
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonHead}>
+            <TouchableOpacity style={styles.buttonHead} onPress={handleDeletePress}>
                 <Image
                     source={icons.delete}
                     style={styles.icon}

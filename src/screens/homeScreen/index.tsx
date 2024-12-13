@@ -3,38 +3,33 @@ import React, { useState } from 'react';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
-import BottomBar from '../../components/bottomBar';
 import AddButton from '../../components/addButton';
 import HomeHeader from '../../components/homeHeader';
 import Card from '../../components/card';
-import { addNotes, deleteNotes } from '../../Redux/config/configSlice';
-import { colors } from '../../utils/color';
+import { deleteNotes } from '../../Redux/config/configSlice';
 import { styles } from './styles';
-interface Item {
-  title: string;
-  note: string;
-}
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
+
+/**
+ * this screen renders all the notes as card as saved by the user
+ */
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const { item } = useSelector((store: any) => store.configSlice);
   const dispatch = useDispatch();
   const inset = useSafeAreaInsets();
   const [view, setView] = useState(1);
-  const bgcColor: any = ["#EB9DA2", "#F0B884", "#E8E6A5", "#BBE8B5", "ACBBE8", "C5ACE8"]
-  
+
   const handlePress = () => {
     navigation.navigate('NotesScreen',
     );
   };
+
   const onSearchPress = () => {
     navigation.navigate('SearchScreen');
   }
-  
+
   const onCardPress = (index: any, items: any) => {
     const id = item[index].uniqueId
-    console.log("first1",items)
-
     navigation.navigate('NotesScreen', { id: id, items: items, flag: true });
   };
 
@@ -66,13 +61,14 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
       <View style={styles.rowBack}>
         <TouchableOpacity
           style={styles.backRightBtn}
-          onPress={() => deleteItem(data.index)}
+          onPress={() => deleteItem(data.item.uniqueId)}
         >
           <Text style={styles.backTextWhite}>Delete</Text>
         </TouchableOpacity>
       </View>
     );
   }
+
   const onPressDrawer = () => {
     navigation.openDrawer();
   }

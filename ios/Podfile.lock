@@ -1395,6 +1395,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-voice (3.2.4):
+    - React-Core
   - react-native-webview (13.12.4):
     - DoubleConversion
     - glog
@@ -1729,7 +1731,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNPermissions (5.2.0):
+  - RNPermissions (5.2.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1973,6 +1975,7 @@ DEPENDENCIES:
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
+  - "react-native-voice (from `../node_modules/@react-native-voice/voice`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -2098,6 +2101,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-splash-screen"
   react-native-view-shot:
     :path: "../node_modules/react-native-view-shot"
+  react-native-voice:
+    :path: "../node_modules/@react-native-voice/voice"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-nativeconfig:
@@ -2216,6 +2221,7 @@ SPEC CHECKSUMS:
   react-native-slider: 124ce99f9cd2d04c79f020da6dee9f8d38a6b8c7
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-view-shot: f0b94997decfc338383ba9dc0748985b02934b8c
+  react-native-voice: f5e8eec2278451d0017eb6a30a6ccc726aca34e0
   react-native-webview: 0bd56be54d01756f20eb942dad37a2cd22a6def2
   React-nativeconfig: 93fe8c85a8c40820c57814e30f3e44b94c995a7b
   React-NativeModulesApple: b3e076fd0d7b73417fe1e8c8b26e3c57ae9b74aa
@@ -2248,7 +2254,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: fe98f1b459a87b80f12207da80c50b3a3abb6081
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 0e5ae8d72ef4afb855e98dcdbe60f27d938abe13
-  RNPermissions: 00c1cfbdcbda40c167021a47aeed31fd3fe8195a
+  RNPermissions: 2700f0b69e391198423b94f90e1f6240ee0d6b89
   RNReanimated: 006a5d3961bf09c1e96d62ed436e02b2e43b89bb
   RNScreens: 44a3e358d5ccd7815c5ae9148988c562826992b2
   RNSoundPlayer: 490822518cc1d6d80495ca7e3223df5869c30851
@@ -2256,6 +2262,6 @@ SPEC CHECKSUMS:
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: db69236006b8b1c6d55ab453390c882306cbf219
 
-PODFILE CHECKSUM: bd2e4ed0e46d2d3e3761824fef0afd899497b9eb
+PODFILE CHECKSUM: d2cd56a46e57ed818e28afb50892796b18939df1
 
 COCOAPODS: 1.15.2

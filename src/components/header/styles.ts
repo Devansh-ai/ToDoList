@@ -23,12 +23,14 @@ export const styles = StyleSheet.create({
     },
     imagePin: {
         height: 30,
+        marginHorizontal: 10,
         width: 30,
     },
     imageIcon: {
         height: 30,
         width: 30,
         resizeMode: 'contain',
-        marginHorizontal: 18,
+        marginHorizontal: 10,
+        marginRight:15,
     },
 })

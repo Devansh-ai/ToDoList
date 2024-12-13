@@ -26,7 +26,9 @@ const drawer = {
     archive: "Archive",
     delete: "Deleted",
     set: "Setting",
-
-
 }
-export { notesFooter, modal1, modal2, drawer };
+const deleted={
+    head:"Deleted Items",
+    nothing:"No Deleted Items to show"
+}
+export { notesFooter, modal1, modal2, drawer,deleted };

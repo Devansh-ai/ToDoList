@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
         color: 'black',
         fontWeight: '600',
-        marginBottom:5,
+        marginBottom: 5,
     },
     container: {
         flex: 1,

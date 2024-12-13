@@ -1,20 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {Text, View } from 'react-native'
 import React from 'react'
-import { colors } from '../../utils/color';
 import { styles } from './styles';
 
-const Card = ({ text1, text2,bgColor }: { text1: string, text2: string ,bgColor:string}) => {
-    console.log("bgcc",bgColor)
+const Card = ({ text1, text2, bgColor }: { text1: string, text2: string, bgColor: string }) => {
+    // console.log("bgcc", bgColor)
     return (
-        <View style={[styles.container,{backgroundColor:bgColor}]}>
+        <View style={[styles.container, { backgroundColor: bgColor }]}>
             <Text style={styles.head}>
                 {text1}
             </Text>
             <Text >
                 {text2}
             </Text>
-
-
         </View>
     )
 }

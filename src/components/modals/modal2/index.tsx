@@ -6,13 +6,11 @@ import { colors } from '../../../utils/color';
 import { styles } from './styles';
 
 const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, ondismiss: any, deleteOperation: any }) => {
-    const [isModalVisible, setisModalVisible] = useState<boolean>(visible)
     const toggleModal = () => {
         ondismiss()
     };
     const handleDelete = () => {
         deleteOperation();
-        setisModalVisible(false);
         toggleModal();
     };
     const handleOpenLink = () => {
@@ -45,25 +43,16 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
                                     {modal2.delete}
                                 </Text>
                             </TouchableOpacity>
-
-
-
                             <TouchableOpacity style={styles.modalButton}>
                                 <Image
                                     source={icons.copy}
                                     style={styles.buttonIcon}
                                     tintColor={colors.secondaryBg}
-
-
                                 />
                                 <Text style={styles.modalButtonText}>
                                     {modal2.copy}
                                 </Text>
                             </TouchableOpacity>
-
-
-
-
                             <TouchableOpacity style={styles.modalButton}>
                                 <Image
                                     source={icons.send}
@@ -80,8 +69,6 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
                                     source={icons.collab}
                                     style={styles.buttonIcon}
                                     tintColor={colors.secondaryBg}
-
-
                                 />
                                 <Text style={styles.modalButtonTextDelete}>
                                     {modal2.collab}
@@ -92,8 +79,6 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
                                     source={icons.label}
                                     style={styles.buttonIcon}
                                     tintColor={colors.secondaryBg}
-
-
                                 />
                                 <Text style={styles.modalButtonTextDelete}>
                                     {modal2.label}
@@ -104,16 +89,12 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
                                     source={icons.help}
                                     style={styles.buttonIcon}
                                     tintColor={colors.secondaryBg}
-
-
                                 />
                                 <Text style={styles.modalButtonTextDelete}>
                                     {modal2.help}
                                 </Text>
                             </TouchableOpacity>
                         </View>
-
-
                     </View>
                 </Pressable>
             </Modal>

@@ -1,17 +1,13 @@
-import { StyleSheet, Text, View, Modal, Pressable, TouchableOpacity, Image, Platform, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { Text, View, Modal, Pressable, TouchableOpacity, Image } from 'react-native'
+import React, { useState } from 'react'
 import { modal1 } from '../../../utils/Strings';
 import { icons } from '../../../assets';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../utils/color';
 import { styles } from './styles';
 
 const UploadModal = ({ visible, ondismiss, imageUploadPress, handleCanvasPress }: { handleCanvasPress: any, imageUploadPress: any, visible: any, ondismiss: any }) => {
-    const navigation = useNavigation();
     const [imageUri, setImageUri] = useState<string | null>('');
-
-
     const toggleModal = () => {
         ondismiss()
     };
@@ -21,6 +17,7 @@ const UploadModal = ({ visible, ondismiss, imageUploadPress, handleCanvasPress }
                 console.log(imageUri, "imageuri")
                 imageUploadPress(response.assets[0].uri ?? '')
                 setImageUri(response.assets[0].uri ?? '');
+                toggleModal()
             }
         });
 

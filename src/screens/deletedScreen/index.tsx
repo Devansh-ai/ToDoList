@@ -1,19 +1,22 @@
 import { Alert, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 import Card from '../../components/card';
 import { styles } from './styles';
 import { recoverNotes } from '../../Redux/config/configSlice';
+import { deleted } from '../../utils/Strings';
 
+/**
+ * this screen shows all the deleted items from the homescreen
+ */
 const SCREEN_WIDTH = Dimensions.get('screen').width;
-
 const DeletedScreen = ({ navigation }: { navigation: any }) => {
-  const { deletedItems } = useSelector((store: any) => store.configSlice);
+  const deletedItems = useSelector((store: any) => store.configSlice);
   const dispatch = useDispatch();
   const inset = useSafeAreaInsets();
-  const [view, setView] = React.useState(1);
+  const [view, setView] = useState(1);
 
   const handleView = () => {
     setView(view === 2 ? 1 : 2);
@@ -39,9 +42,9 @@ const DeletedScreen = ({ navigation }: { navigation: any }) => {
   const renderItem = (data: any) => {
     return (
       <View style={[styles.rowFront, { width: SCREEN_WIDTH / view }]}>
-        <Card 
-          text1={data.item.title} 
-          text2={data.item.note} 
+        <Card
+          text1={data.item.title}
+          text2={data.item.note}
           bgColor={data.item.bgColor}
         />
       </View>
@@ -64,44 +67,39 @@ const DeletedScreen = ({ navigation }: { navigation: any }) => {
   const renderHeader = () => {
     return (
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.headerButton}
           onPress={() => navigation.goBack()}
         >
-          <Icon name="arrow-back" size={24} color="#000" />
-        </TouchableOpacity>
-        
-        <Text style={styles.headerTitle}>Deleted Notes</Text>
 
-        <TouchableOpacity 
+        </TouchableOpacity>
+
+        <Text style={styles.headerTitle}>{deleted.head}</Text>
+
+        <TouchableOpacity
           style={styles.headerButton}
           onPress={handleView}
         >
-          <Icon 
-            name={view === 1 ? "grid-view" : "view-agenda"} 
-            size={24} 
-            color="#000" 
-          />
+
         </TouchableOpacity>
       </View>
     );
   };
-
   return (
     <View style={[styles.main, { paddingTop: inset.top }]}>
       {renderHeader()}
       <View style={{ marginTop: 20 }} />
-      {deletedItems.length === 0 ? (
+      {Object.keys(deletedItems.deletedItem).length === 0 ? (
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>No deleted notes</Text>
+          <Text style={styles.emptyText}>{deleted.nothing}</Text>
         </View>
       ) : (
         <SwipeListView
-          data={deletedItems}
+          data={deletedItems.deletedItem}
           disableRightSwipe
           renderItem={renderItem}
           renderHiddenItem={renderHiddenItem}
-          rightOpenValue={-75}
+          rightOpenValue={-110}
           leftOpenValue={0}
           key={view}
           keyExtractor={(item, index) => index.toString()}
@@ -109,7 +107,7 @@ const DeletedScreen = ({ navigation }: { navigation: any }) => {
           closeOnRowPress={true}
           disableLeftSwipe={false}
           swipeToOpenPercent={30}
-          stopLeftSwipe={-75}
+          stopLeftSwipe={-110}
           closeOnRowBeginSwipe={true}
           previewOpenDelay={0}
           previewOpenValue={0}

@@ -1,4 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Alert } from 'react-native';
+
+/**
+ * this is the redux toolkit sllice code
+ * it has reducers for CRUD operations of notes
+ */
 
 interface ConfigModal {
   item: {
@@ -18,9 +24,13 @@ interface ConfigModal {
     audioFiles: string[];
   }[];
 }
-
+let counter=0;
 let initialState: ConfigModal = {
-  item: [],
+  item: [
+    { "audioFiles": [], "bgColor": "#E4F1AC", "imageUri": [], "note": "Functions such as to-do-list and notebook have been added to notes to help you record edit and manage your thoughts and ideas", "title": "Welcome to Notes", "uniqueId": 201 },
+    { "audioFiles": [], "bgColor": "#E4F1AC", "imageUri": [], "note": "Enhance your notes with editing functions such as text styles,doodles", "title": "Edit as you want", "uniqueId": 202 },
+    { "audioFiles": [], "bgColor": "#E4F1AC", "imageUri": [], "note": "Save your voice notes now in notes app along with your text", "title": "Voice Recorder ", "uniqueId": 203 }
+  ],
   deletedItem: [],
 };
 
@@ -30,7 +40,6 @@ const ConfigSlice = createSlice({
   reducers: {
     deleteNotes: (state, action) => {
       const id = action.payload;
-      console.log("devansh", id);
       const noteIndex = state.item.findIndex(note => note.uniqueId === id);
       if (noteIndex >= 0) {
         const deletedNote = state.item.splice(noteIndex, 1)[0];
@@ -38,14 +47,23 @@ const ConfigSlice = createSlice({
       } else {
         console.error(`Note with uniqueId ${id} not found`);
       }
+      // console.log("deletedvvvvvvvvvvvv", state.deletedItem)
     },
+    addNotesPin:(state,action)=>{
+      const id=action.payload;
+      Alert.alert("qwertyuiop")
+      console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqq",id)
+      state.item.splice(counter,0,id)
+      counter++;
+    },
+    
     addNotes: (state, action) => {
       const data: any = action.payload;
       const newNote = {
         ...data,
         audioFiles: data.audioFiles || [],
       };
-      state.item.push(newNote);
+      state.item.splice(counter,0,newNote);
     },
     editNotes: (state, action) => {
       const { id, item } = action.payload;
@@ -70,11 +88,10 @@ const ConfigSlice = createSlice({
     recoverNotes: (state, action) => {
       const index = action.payload;
       if (index >= 0 && index < state.deletedItem.length) {
-        // Remove from deletedItem and add to item array
         const recoveredNote = state.deletedItem.splice(index, 1)[0];
         state.item.push(recoveredNote);
       } else {
-        console.error(`Note at index ${index} not found in deleted items`);
+        console.warn(`Note at index ${index} not found in deleted items`);
       }
     },
   },
@@ -85,6 +102,7 @@ export const {
   editNotes,
   deleteNotes,
   recoverNotes,
+  addNotesPin
 } = ConfigSlice.actions;
 
 export default ConfigSlice.reducer;

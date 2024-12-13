@@ -4,15 +4,13 @@ import { colors } from "../../utils/color";
 export const styles = StyleSheet.create({
     containerHead: {
         backgroundColor: colors.mainBg,
-
     },
     container: {
         backgroundColor: colors.mainBg,
-        alignItems: 'center',
         justifyContent: 'space-evenly',
         flexDirection: 'row',
         paddingTop: Dimensions.get('screen').height * 0.02,
-        bottom: 30,
+        bottom: Dimensions.get('screen').height * 0.04,
         paddingLeft: Dimensions.get('screen').width * 0.05,
     },
     addIcon: {

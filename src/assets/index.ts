@@ -1,4 +1,3 @@
-const images = {};
 const icons =
 {
     pen: require('./icons/pen.png'),
@@ -35,4 +34,4 @@ const icons =
     heartFilled: require('./icons/heartFilled.png'),
 
 };
-export { images, icons }
+export {icons }
