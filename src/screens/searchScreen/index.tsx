@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, FlatList, StyleSheet, Text, SafeAreaView, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { View, TextInput, FlatList, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import Card from '../../components/card';
 import { colors } from '../../utils/color';

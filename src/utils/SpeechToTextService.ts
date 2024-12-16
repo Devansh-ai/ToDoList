@@ -107,7 +107,7 @@ const SpeechToTextService = {
       return true; // Assuming available and permissions granted for other platforms
     }
   },
-startListening: async (
+  startListening: async (
     onTextRecognized: SpeechRecognitionCallback,
     isListening: (arg0: boolean) => void,
   ) => {
@@ -116,7 +116,7 @@ startListening: async (
         console.log('result of speech', event);
         const transcript = event.value[0];
         onTextRecognized(transcript);
-        console.log("transcript",transcript)
+        console.log("transcript", transcript)
         // clearTimeout(stopTimeout);
         // SpeechToTextService.startStopTimeout();
       };
@@ -169,7 +169,7 @@ startListening: async (
     }
   },
 
-  onSpeechEnd: async (speachEnded: () => void) => {},
+  onSpeechEnd: async (speachEnded: () => void) => { },
 
   removeSpeechListeners: () => {
     Voice.removeAllListeners();

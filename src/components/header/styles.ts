@@ -14,23 +14,24 @@ export const styles = StyleSheet.create({
 
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: SCREEN_HEIGHT * 0.07,
-        marginBottom: SCREEN_HEIGHT * 0.01
+        marginTop: SCREEN_HEIGHT * 0.015,
+        marginBottom: SCREEN_HEIGHT * 0.02
     },
     image: {
-        height: 40,
-        width: 40,
+        height: SCREEN_HEIGHT * 0.03,
+        aspectRatio: 1.5
+
     },
     imagePin: {
-        height: 30,
+        height: SCREEN_HEIGHT * 0.03,
+        aspectRatio: 1,
         marginHorizontal: 10,
-        width: 30,
     },
     imageIcon: {
-        height: 30,
-        width: 30,
+        height: SCREEN_HEIGHT * 0.03,
+        aspectRatio: 1,
         resizeMode: 'contain',
         marginHorizontal: 10,
-        marginRight:15,
+        marginRight: 15,
     },
 })

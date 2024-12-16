@@ -34,4 +34,4 @@ const icons =
     heartFilled: require('./icons/heartFilled.png'),
 
 };
-export {icons }
+export { icons }

@@ -1,4 +1,4 @@
-import { Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Dimensions, Image, SafeAreaView, ScrollView, Share, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/header'
 import { styles } from './styles'
@@ -6,12 +6,11 @@ import NotesFooter from '../../components/notesFooter'
 import { colors } from '../../utils/color'
 import { useRoute } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { addNotes, addNotesPin, deleteNotes, editNotes } from '../../Redux/config/configSlice'
+import { addNotes, deleteNotes, editNotes, pinNotes } from '../../Redux/config/configSlice'
 import CanvasDrawing from '../../components/canvas'
 import AudioRecorderPlayer from 'react-native-audio-recorder-player'
 import { icons } from '../../assets'
 import SpeechToTextService from '../../utils/SpeechToTextService'
-// import Voice from '@react-native-community/voice';
 
 
 /**
@@ -27,15 +26,21 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
     id?: number;
     items?: any;
     flag?: boolean;
+    result?: string;
   }
   const dispatch = useDispatch();
   const route = useRoute();
 
-  // const [result, setResult] = useState('');
-  // const [isLoading, setLoading] = useState(false);
-  const { id = 0, items = '', flag = false } = (route.params as RouteParams) || {};
+  const { id = 0, items = '', flag = false, result = "" } = (route.params as RouteParams) || {};
   const [title, setTitle] = useState<string>(items?.title || '');
-  const [note, setNote] = useState<string>(items?.note || '');
+  let noteContent;
+  if (items !== '' && result !== "")
+    noteContent = items?.note + result;
+  else if (result)
+    noteContent = result;
+  else
+    noteContent = items?.note;
+  const [note, setNote] = useState<string>(noteContent || '');
   const [showCanvas, setShowCanvas] = useState(false);
   const [selectedColor, setSelectedColor] = useState<string>(colors.theme);
   const [color, setColor] = useState<boolean>(false);
@@ -66,7 +71,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1);
-
+  console.log("aaaaaaaaaaaaaaaaa", note)
   useEffect(() => {
     return () => {
       if (isPlaying) {
@@ -143,14 +148,26 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
         onPress={() => handlePlayRecording(path, index)}
       >
         <Image
-          source={isPlaying && currentAudioIndex === index ? icons.bell : icons.collab}
-          style={{ width: 24, height: 24, marginRight: 10 }}
+          source={isPlaying && currentAudioIndex === index ? icons.pause : icons.play}
+          style={styles.playIcon}
+          tintColor={colors.mainBg}
         />
         <Text style={{ color: colors.mainBg }}>Recording {index + 1}</Text>
       </TouchableOpacity>
     ));
   };
-
+  const onShare = async () => {
+    try {
+      const noteData = title + " " + note;
+      const result = await Share.share({
+        message:
+          noteData
+      });
+    }
+    catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
   const handleCanvasSave = (uri: string) => {
     const newArr = [...imageUpload, uri];
     setImageUpload(newArr);
@@ -172,15 +189,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       dispatch(addNotes(noteData));
     }
     else if (note !== "" && title !== "" && flag === false && pin) {
-      dispatch(addNotesPin(noteData))
-    }
-    else if (flag && pin) {
-      dispatch(editNotesPin({
-        id,
-        item: {
-          ...noteData,
-        },
-      }));
+      dispatch(pinNotes(noteData))
     }
     else if (flag && !pin) {
       dispatch(editNotes({
@@ -192,21 +201,6 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
     }
     navigation.goBack();
   };
-  // const handlePin=()=>{
-  //   let colorToUse;
-  //   if (flag === false) {
-  //     colorToUse = (color ? selectedColor : bgcColors[Math.floor(Math.random() * 20)]);
-  //   }
-  //   const noteData = {
-  //     title,
-  //     note,
-  //     bgColor: colorToUse,
-  //     uniqueId: Math.floor(Math.random() * 200),
-  //     imageUri: imageUpload,
-  //     audioFiles: audioRecordings,
-  //   };
-
-  // }
 
 
   const handleTitle = (text: any) => {
@@ -263,6 +257,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
     navigation.goBack();
 
   }
+
   const handleCanvasPress = () => {
     setShowCanvas(true);
   };
@@ -279,13 +274,13 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
     //   console.log("Checking availability and permissions...");
     //   const availability = SpeechToTextService.checkAvailabilityAndPermissions();
     //   console.log("Availability and Permissions check result:", availability);
-  
+
     //   if (availability) {
     //     // Start listening
     //     console.log("Starting listening...");
     //     SpeechToTextService.startListening();
     //     console.log("Started listening successfully");
-  
+
     //     // Stop listening after some time (you can adjust the timing)
     //     setTimeout(async () => {
     //       console.log("Stopping listening...");
@@ -304,11 +299,11 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <>
-      <View style={{ flex: 1, backgroundColor: selectedColor, }} >
-        <Header
-          onPress={handlePress}
-          handlePin={handlePin}
-        />
+      <Header
+        onPress={handlePress}
+        handlePin={handlePin}
+      />
+      <SafeAreaView style={{ flex: 1, backgroundColor: selectedColor, }} >
         <ScrollView style={{ flex: 1 }}>
           <View style={[styles.container, { backgroundColor: selectedColor }]}>
             <View style={{ flex: 1 }}>
@@ -331,7 +326,6 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
               keyboardAppearance='dark'
               multiline={true}
               placeholderTextColor={'black'}
-
               placeholder='Note'
               style={styles.note}
               cursorColor={'white'}
@@ -339,16 +333,9 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
               onChangeText={(text) => handleNote(text)}
 
             />
-
-           <TouchableOpacity onPress={handleSpeech}>
-            <Text>
-              speech to text
-            </Text>
-           </TouchableOpacity>
-          
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
       {showCanvas && (
         <CanvasDrawing
           onSave={handleCanvasSave}
@@ -357,6 +344,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       )}
       <NotesFooter
         handleCanvasPress={handleCanvasPress}
+        onShare={onShare}
         onColorOptionPress={(color: string) => {
           setSelectedColor(color)
           setColor(true);
@@ -368,6 +356,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
         }}
         handleAudioPress={handleAudioPress}
         isRecording={isRecording}
+        handleSpeech={handleSpeech}
       />
     </>
   )

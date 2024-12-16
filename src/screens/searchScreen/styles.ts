@@ -15,9 +15,6 @@ export const styles = StyleSheet.create({
 
     },
     card: {
-        // backgroundColor: 'red',
-        // borderColor: 'green',
-        // borderWidth: 2,
         height: SCREEN_HEIGHT * 0.1
     },
     container: {

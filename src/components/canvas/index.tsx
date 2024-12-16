@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, StyleSheet, PanResponder, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { View, PanResponder, TouchableOpacity, Text } from 'react-native';
 import ViewShot from 'react-native-view-shot';
 import Svg, { Path } from 'react-native-svg';
 import { styles } from './styles';

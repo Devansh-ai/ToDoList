@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import { icons } from '../../assets'
 import { colors } from '../../utils/color'
 import { styles } from './styles'
+import { homeHeader } from '../../utils/Strings'
 
-const HomeHeader = ({ onPress, view, onPressDrawer,onSearchPress }: { onPress: any, view: any, onPressDrawer: any,onSearchPress:any }) => {
+const HomeHeader = ({ onPress, view, onPressDrawer, onSearchPress }: { onPress: any, view: any, onPressDrawer: any, onSearchPress: any }) => {
 
   return (
     <View style={styles.header}>
@@ -20,11 +21,11 @@ const HomeHeader = ({ onPress, view, onPressDrawer,onSearchPress }: { onPress: a
 
       <TouchableOpacity style={styles.container} onPress={onSearchPress}>
         <Text style={styles.search}>
-        Search
+          {homeHeader.textSearch}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onPress} style={{justifyContent:'center'}}>
-        {view===2 ? (<Image
+      <TouchableOpacity onPress={onPress} style={{ justifyContent: 'center' }}>
+        {view === 2 ? (<Image
           style={styles.viewIcon2}
           source={icons.tabView2}
         />) : (<Image

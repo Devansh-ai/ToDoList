@@ -11,7 +11,7 @@ const modal1 = {
 }
 const modal2 = {
     delete: 'Delete',
-    copy: 'Make A Copy',
+    copy: 'Speech To Text',
     send: 'Send',
     collab: 'Collaborator',
     label: 'Labels',
@@ -27,8 +27,11 @@ const drawer = {
     delete: "Deleted",
     set: "Setting",
 }
-const deleted={
-    head:"Deleted Items",
-    nothing:"No Deleted Items to show"
+const deleted = {
+    head: "Deleted Items",
+    nothing: "No Deleted Items to show"
 }
-export { notesFooter, modal1, modal2, drawer,deleted };
+const homeHeader = {
+    textSearch: 'Search'
+}
+export { notesFooter, modal1, modal2, drawer, deleted, homeHeader };

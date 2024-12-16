@@ -23,8 +23,16 @@ interface ConfigModal {
     bgColor: string;
     audioFiles: string[];
   }[];
+  pinnedItems: {
+    title: string;
+    note: string;
+    uniqueId: number;
+    imageUri: string[];
+    bgColor: string;
+    audioFiles: string[];
+  }[];
 }
-let counter=0;
+let counter = 0;
 let initialState: ConfigModal = {
   item: [
     { "audioFiles": [], "bgColor": "#E4F1AC", "imageUri": [], "note": "Functions such as to-do-list and notebook have been added to notes to help you record edit and manage your thoughts and ideas", "title": "Welcome to Notes", "uniqueId": 201 },
@@ -32,6 +40,7 @@ let initialState: ConfigModal = {
     { "audioFiles": [], "bgColor": "#E4F1AC", "imageUri": [], "note": "Save your voice notes now in notes app along with your text", "title": "Voice Recorder ", "uniqueId": 203 }
   ],
   deletedItem: [],
+  pinnedItems: []
 };
 
 const ConfigSlice = createSlice({
@@ -47,23 +56,23 @@ const ConfigSlice = createSlice({
       } else {
         console.error(`Note with uniqueId ${id} not found`);
       }
-      // console.log("deletedvvvvvvvvvvvv", state.deletedItem)
     },
-    addNotesPin:(state,action)=>{
-      const id=action.payload;
-      Alert.alert("qwertyuiop")
-      console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqq",id)
-      state.item.splice(counter,0,id)
+    addNotesPin: (state, action) => {
+      const id = action.payload;
+      state.item.splice(counter, 0, id)
       counter++;
     },
-    
+    pinNotes: (state, action) => {
+      state.pinnedItems.unshift(action.payload);
+    },
     addNotes: (state, action) => {
       const data: any = action.payload;
       const newNote = {
         ...data,
         audioFiles: data.audioFiles || [],
       };
-      state.item.splice(counter,0,newNote);
+      state.item.unshift(newNote);
+
     },
     editNotes: (state, action) => {
       const { id, item } = action.payload;
@@ -102,7 +111,7 @@ export const {
   editNotes,
   deleteNotes,
   recoverNotes,
-  addNotesPin
+  pinNotes
 } = ConfigSlice.actions;
 
 export default ConfigSlice.reducer;

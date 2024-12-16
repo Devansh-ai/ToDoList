@@ -1,16 +1,14 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { colors } from "../../../utils/color";
 
 
 export const styles = StyleSheet.create({
     modalContainer: {
-        marginTop: 10,
-        marginBottom: 20,
-
+        marginVertical: 15,
     },
     modalContent: {
         backgroundColor: '#f2f2f2',
-        borderRadius: 20,
+        borderRadius: 25,
     },
     container: {
         flex: 1,
@@ -22,21 +20,15 @@ export const styles = StyleSheet.create({
         width: 25,
     },
     modalButtonText: {
-        fontSize: 20,
-        fontWeight: '600',
-        paddingLeft: 8,
+        fontSize: 18,
+        fontWeight: '500',
+        paddingLeft: 10,
         color: colors.secondaryBg,
     },
     modalButton: {
         flexDirection: 'row',
-        padding: 30,
+        padding: Dimensions.get('screen').height * .02
     },
-    modalButtonTextDelete:
-    {
-        fontSize: 20,
-        fontWeight: '600',
-        paddingLeft: 8,
-        color: colors.secondaryBg,
-    },
+
 
 })

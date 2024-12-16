@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { icons } from '../../assets'
 import { styles } from './styles'
@@ -8,16 +8,15 @@ import { colors } from '../../utils/color'
  * 
  * this is the header of notes screen
  */
-const Header = ({ onPress,handlePin }: { onPress: any,handlePin:any }) => {
+const Header = ({ onPress, handlePin }: { onPress: any, handlePin: any }) => {
    const [isSelected, setIsSeleted] = useState<boolean>(false)
    const handleOnPress = () => {
       setIsSeleted(!isSelected)
       handlePin();
-
    }
 
    return (
-      <View style={styles.main}>
+      <SafeAreaView style={styles.main}>
 
 
          <View style={styles.container}>
@@ -58,7 +57,7 @@ const Header = ({ onPress,handlePin }: { onPress: any,handlePin:any }) => {
                </TouchableOpacity>
             </View>
          </View>
-      </View>
+      </SafeAreaView>
    )
 }
 

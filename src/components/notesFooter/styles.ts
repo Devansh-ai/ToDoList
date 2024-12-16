@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { colors } from "../../utils/color";
-
+const SCREEN_HEIGHT = Dimensions.get('screen').height;
+const SCREEN_WIDTH = Dimensions.get('screen').width;
 export const styles = StyleSheet.create({
     containerHead: {
         backgroundColor: colors.mainBg,
@@ -9,35 +10,31 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.mainBg,
         justifyContent: 'space-evenly',
         flexDirection: 'row',
-        paddingTop: Dimensions.get('screen').height * 0.02,
-        bottom: Dimensions.get('screen').height * 0.04,
-        paddingLeft: Dimensions.get('screen').width * 0.05,
+        paddingTop: SCREEN_HEIGHT * 0.02,
+        bottom: SCREEN_HEIGHT * 0.04,
+        paddingLeft: SCREEN_WIDTH * 0.05,
     },
     addIcon: {
 
-        height: 35,
+        height: SCREEN_HEIGHT * 0.03,
         aspectRatio: 1,
 
     },
     audioButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderRadius: 8,
     },
     audioIcon: {
-        width: 25,
-        height: 25,
+        height: SCREEN_HEIGHT * 0.03,
+        aspectRatio: 1,
         resizeMode: 'contain',
     },
     dotIcon: {
-        height: 35,
+        height: SCREEN_HEIGHT * 0.03,
         aspectRatio: 1,
-        left: Dimensions.get('screen').width * .01,
     },
     text: {
         color: colors.secondaryBg,
         fontSize: 16,
-        marginTop: 10,
-        marginHorizontal: 10,
+        alignSelf: 'center',
+        marginHorizontal: SCREEN_WIDTH * 0.06,
     }
 })

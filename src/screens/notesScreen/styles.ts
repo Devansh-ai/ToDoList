@@ -1,24 +1,27 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { colors } from "../../utils/color";
 
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
-
 export const styles = StyleSheet.create({
+  playIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 10
+  },
   container: {
-    flex:1,
-    borderRadius:20,
-    // height:500
-    flexBasis:1,
-
+    flex: 1,
+    borderRadius: 20,
+    flexBasis: 1,
   },
   audioItem: {
-
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
+    margin: 5,
     marginVertical: 5,
     backgroundColor: colors.secondaryBg,
-    borderRadius: 8,
+    borderRadius: 15,
+    alignSelf: 'center',
+    width: Dimensions.get('screen').width * .9,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -35,17 +38,19 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     padding: 8,
     color: 'black',
-    
   },
-  flexrap:{ flexDirection: 'row', flexWrap: 'wrap',margin:5,justifyContent:'center' },
+  flexrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: 5,
+    justifyContent: 'center'
+  },
   note: {
-
-    alignSelf:'center',
+    alignSelf: 'center',
     borderColor: 'white',
     width: '99%',
     fontSize: 18,
     padding: 10,
     color: 'black',
-// height: SCREEN_HEIGHT * .7,
   },
 })

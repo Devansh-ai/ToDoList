@@ -2,8 +2,9 @@ import { ActivityIndicator, PermissionsAndroid, Platform, SafeAreaView, Text, Te
 import React, { useEffect, useState } from 'react'
 import { styles } from './styles'
 import Voice from '@react-native-voice/voice';
+import { colors } from '../../utils/color';
 
-const SpeechToTxtScreen = () => {
+const SpeechToTxtScreen = ({ navigation }: { navigation: any }) => {
     const [result, setResult] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
@@ -12,21 +13,21 @@ const SpeechToTxtScreen = () => {
         Voice.onSpeechEnd = stopListening;
         Voice.onSpeechResults = onSpeechResults;
         Voice.onSpeechError = (error: any) => console.log("onSpeechError", error);
-        
-        const androidPermissionChecking=async()=>{
-            if(Platform.OS === 'android'){
-                const hasPermission=await PermissionsAndroid.check(
+
+        const androidPermissionChecking = async () => {
+            if (Platform.OS === 'android') {
+                const hasPermission = await PermissionsAndroid.check(
                     PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
                 )
             }
         }
         androidPermissionChecking();
-        
+
         return () => {
             Voice.destroy().then(Voice.removeAllListeners)
         }
     }, [])
-    const onSpeechStart = (event:any) => {
+    const onSpeechStart = (event: any) => {
         console.log("recording started", event)
 
     };
@@ -39,8 +40,8 @@ const SpeechToTxtScreen = () => {
             console.log("error in starting recording", error)
         }
     }
-   
-    const onSpeechResults = (event:any) => {
+
+    const onSpeechResults = (event: any) => {
         console.log("speech results are", event)
         const text = event.value[0];
         setResult(text)
@@ -52,7 +53,7 @@ const SpeechToTxtScreen = () => {
             await Voice.stop();
             setIsRecording(false)
         } catch (error) {
-            console.log("error in stopping listening",error)
+            console.log("error in stopping listening", error)
         }
     }
     const onSpeechEnd = () => {
@@ -143,9 +144,16 @@ const SpeechToTxtScreen = () => {
     //     // console.log(Voice.)
     // };
 
-    // const clearText = () => {
-    //     setResult('');
-    // };
+    const clearText = () => {
+        setResult('');
+    };
+    const handleResult = (text: string) => {
+        setResult(text);
+        console.log("devansh", text)
+    }
+    const saveResults = () => {
+        navigation.navigate('NotesScreen', { result: result })
+    }
 
     return (
         <View style={styles.container}>
@@ -160,7 +168,7 @@ const SpeechToTxtScreen = () => {
                             flex: 1,
                             height: '100%',
                         }}
-                    // onChangeText={setResult}
+                        onChangeText={(text: any) => handleResult(text)}
                     />
                 </View>
                 <View style={styles.btnContainer}>
@@ -170,31 +178,40 @@ const SpeechToTxtScreen = () => {
                         onPress={() => {
                             isRecording ? stopListening() : startListening()
                         }}
+                        style={[styles.start, isRecording && { opacity: 0.5 }]}
+                        disabled={isRecording}
                     >
-                        <Text style={{ backgroundColor: 'red', color: 'white' }}>
+                        <Text style={{ backgroundColor: colors.secondaryBg, color: 'white' }}>
                             record
                         </Text>
                     </TouchableOpacity>
 
-                    {/* 
+
                     <TouchableOpacity
                         style={[styles.stop, !isRecording && { opacity: 0.5 }]}
-                    // onPress={stopRecording}
-                    // disabled={!isRecording}
+                        onPress={stopListening}
+                        disabled={!isRecording}
                     >
                         <Text style={{ color: 'white', fontWeight: 'bold' }}>
                             Stop
                         </Text>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                 </View>
 
-                {/* <TouchableOpacity style={styles.clear}
-                //  onPress={clearText}
+                <TouchableOpacity style={styles.clear}
+                    onPress={clearText}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold' }}>
                         Clear
                     </Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.save}
+                    onPress={saveResults}
+                >
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                        Save
+                    </Text>
+                </TouchableOpacity>
             </SafeAreaView>
         </View>
     );

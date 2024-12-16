@@ -5,7 +5,7 @@ import { icons } from '../../../assets';
 import { colors } from '../../../utils/color';
 import { styles } from './styles';
 
-const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, ondismiss: any, deleteOperation: any }) => {
+const OptionsModal = ({ visible, ondismiss, deleteOperation, onShare, handleSpeech }: { handleSpeech: any, onShare: any, visible: any, ondismiss: any, deleteOperation: any }) => {
     const toggleModal = () => {
         ondismiss()
     };
@@ -43,9 +43,9 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
                                     {modal2.delete}
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.modalButton}>
+                            <TouchableOpacity style={styles.modalButton} onPress={handleSpeech}>
                                 <Image
-                                    source={icons.copy}
+                                    source={icons.mic}
                                     style={styles.buttonIcon}
                                     tintColor={colors.secondaryBg}
                                 />
@@ -53,7 +53,7 @@ const OptionsModal = ({ visible, ondismiss, deleteOperation }: { visible: any, o
                                     {modal2.copy}
                                 </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.modalButton}>
+                            <TouchableOpacity style={styles.modalButton} onPress={onShare}>
                                 <Image
                                     source={icons.send}
                                     style={styles.buttonIcon}
