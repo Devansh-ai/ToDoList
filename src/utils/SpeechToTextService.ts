@@ -140,7 +140,7 @@ const SpeechToTextService = {
 
         // You can set a state here to track speech status if needed
       };
-
+      Alert.alert('')
       await Voice.start('en-GB');
       // SpeechToTextService.startStopTimeout();
     } catch (error) {

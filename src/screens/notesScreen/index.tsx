@@ -269,22 +269,23 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
 
 
   const handleSpeech = () => {
+    // SpeechToTextService.startListening((res) => {
+    //   console.log('SpeechToTextService', res)
+    // }, (res) => {
+    // })
+    // SpeechToTextService.startListening(() => { Alert.alert('') }, () => {})
     // try {
     //   // Check availability and permissions
-    //   console.log("Checking availability and permissions...");
     //   const availability = SpeechToTextService.checkAvailabilityAndPermissions();
-    //   console.log("Availability and Permissions check result:", availability);
-
     //   if (availability) {
-    //     // Start listening
-    //     console.log("Starting listening...");
-    //     SpeechToTextService.startListening();
+    //     SpeechToTextService.startListening((res) => {
+    //       console.log('SpeechToTextService', res)
+    //     }, (res) => {
+    //     });
     //     console.log("Started listening successfully");
-
-    //     // Stop listening after some time (you can adjust the timing)
     //     setTimeout(async () => {
     //       console.log("Stopping listening...");
-    //       SpeechToTextService.stopListening();
+    //       // SpeechToTextService.stopListening();
     //       console.log("Stopped listening successfully");
     //     }, 5000);  // Example: stop listening after 5 seconds
     //   } else {

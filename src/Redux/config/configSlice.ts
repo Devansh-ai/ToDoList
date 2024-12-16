@@ -57,11 +57,11 @@ const ConfigSlice = createSlice({
         console.error(`Note with uniqueId ${id} not found`);
       }
     },
-    addNotesPin: (state, action) => {
-      const id = action.payload;
-      state.item.splice(counter, 0, id)
-      counter++;
-    },
+    // addNotesPin: (state, action) => {
+    //   const id = action.payload;
+    //   state.item.splice(counter, 0, id)
+    //   counter++;
+    // },
     pinNotes: (state, action) => {
       state.pinnedItems.unshift(action.payload);
     },
