@@ -103,6 +103,8 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
   }
   const allItems = pinnedItems.concat(item);
 
+  //[...array1, ...array2]
+
   return (
     <View style={[styles.main, { paddingTop: inset.top + 10, flex: 1 }]}>
       <HomeHeader onPress={handleView} view={view}

@@ -1,5 +1,5 @@
 import Voice from '@react-native-voice/voice';
-import { Alert, Linking, Platform } from 'react-native';
+import {Alert, Linking, Platform} from 'react-native';
 import {
   request,
   PERMISSIONS,
@@ -9,8 +9,6 @@ import {
 
 type SpeechRecognitionCallback = (text: string) => void;
 let stopTimeout: string | number | NodeJS.Timeout | undefined;
-
-console.log('chal rha h?')
 
 const SpeechToTextService = {
   checkAvailabilityAndPermissions: async () => {
@@ -104,7 +102,7 @@ const SpeechToTextService = {
         }
       });
     } else {
-      return true; // Assuming available and permissions granted for other platforms
+      return true;
     }
   },
   startListening: async (
@@ -116,16 +114,13 @@ const SpeechToTextService = {
         console.log('result of speech', event);
         const transcript = event.value[0];
         onTextRecognized(transcript);
-        console.log("transcript", transcript)
-        // clearTimeout(stopTimeout);
-        // SpeechToTextService.startStopTimeout();
+        console.log('transcript', transcript);
       };
 
       Voice.onSpeechStart = () => {
         try {
           console.log('Speech started');
           isListening(true);
-          // You can set a state here to track speech status if needed
         } catch (error) {
           console.log('error of speech started', error);
         }
@@ -134,15 +129,9 @@ const SpeechToTextService = {
       Voice.onSpeechEnd = async () => {
         console.log('ye end');
         isListening(false);
-        // Voice.removeAllListeners();
-        // SpeechToTextService?.removeSpeechListeners();
-        // SpeechToTextService.clearStopTimeout(); // Clear the timeout when speech ends
-
-        // You can set a state here to track speech status if needed
       };
-      Alert.alert('')
+
       await Voice.start('en-GB');
-      // SpeechToTextService.startStopTimeout();
     } catch (error) {
       console.error('Error starting speech recognition:', error);
     }
@@ -151,7 +140,7 @@ const SpeechToTextService = {
   startStopTimeout: () => {
     stopTimeout = setTimeout(() => {
       SpeechToTextService.stopListening();
-    }, 5000); // Adjust this timeout value as needed (e.g., 5 seconds here)
+    }, 5000);
   },
 
   clearStopTimeout: () => {
@@ -169,11 +158,11 @@ const SpeechToTextService = {
     }
   },
 
-  onSpeechEnd: async (speachEnded: () => void) => { },
+  onSpeechEnd: async (speachEnded: () => void) => {},
 
   removeSpeechListeners: () => {
     Voice.removeAllListeners();
   },
 };
 
-export default SpeechToTextService
+export default SpeechToTextService;

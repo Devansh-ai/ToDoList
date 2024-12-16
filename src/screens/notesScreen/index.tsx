@@ -1,27 +1,42 @@
-import { Alert, Dimensions, Image, SafeAreaView, ScrollView, Share, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import Header from '../../components/header'
-import { styles } from './styles'
-import NotesFooter from '../../components/notesFooter'
-import { colors } from '../../utils/color'
-import { useRoute } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
-import { addNotes, deleteNotes, editNotes, pinNotes } from '../../Redux/config/configSlice'
-import CanvasDrawing from '../../components/canvas'
-import AudioRecorderPlayer from 'react-native-audio-recorder-player'
-import { icons } from '../../assets'
-import SpeechToTextService from '../../utils/SpeechToTextService'
-
+import {
+  Alert,
+  Dimensions,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Share,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import Header from '../../components/header';
+import {styles} from './styles';
+import NotesFooter from '../../components/notesFooter';
+import {colors} from '../../utils/color';
+import {useRoute} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {
+  addNotes,
+  deleteNotes,
+  editNotes,
+  pinNotes,
+} from '../../Redux/config/configSlice';
+import CanvasDrawing from '../../components/canvas';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import {icons} from '../../assets';
+import SpeechToTextService from '../../utils/SpeechToTextService';
 
 /**
  * this is the main notes screen the allows user
- * to edit the note and add new notes 
-*/
+ * to edit the note and add new notes
+ */
 const SCREEN_HEIGHT = Dimensions.get('screen').height;
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
-const NotesScreen = ({ navigation }: { navigation: any }) => {
+const NotesScreen = ({navigation}: {navigation: any}) => {
   interface RouteParams {
     id?: number;
     items?: any;
@@ -31,47 +46,51 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
   const route = useRoute();
 
-  const { id = 0, items = '', flag = false, result = "" } = (route.params as RouteParams) || {};
+  const {
+    id = 0,
+    items = '',
+    flag = false,
+    result = '',
+  } = (route.params as RouteParams) || {};
   const [title, setTitle] = useState<string>(items?.title || '');
   let noteContent;
-  if (items !== '' && result !== "")
-    noteContent = items?.note + result;
-  else if (result)
-    noteContent = result;
-  else
-    noteContent = items?.note;
+  if (items !== '' && result !== '') noteContent = items?.note + result;
+  else if (result) noteContent = result;
+  else noteContent = items?.note;
   const [note, setNote] = useState<string>(noteContent || '');
   const [showCanvas, setShowCanvas] = useState(false);
   const [selectedColor, setSelectedColor] = useState<string>(colors.theme);
   const [color, setColor] = useState<boolean>(false);
   const [pin, setPin] = useState<boolean>(false);
+  const [isListening, setIsListening] = useState<boolean>(false);
   const [imageUpload, setImageUpload] = useState<any>([]);
-  const bgcColors: any = ["#F0F8FF", // Alice Blue
-    "#FFF0F5", // Lavender Blush
-    "#F5FFFA", // Mint Cream
-    "#FFFFF0", // Ivory
-    "#FFFFE0", // Light Yellow
-    "#FFDAB9", // Peach Puff
-    "#B0E0E6", // Powder Blue
-    "#F0FFF0", // Honeydew
-    "#FFF5EE", // Seashell
-    "#FDF5E6", // Old Lace
-    "#FFE4E1", // Misty Rose
-    "#FFFACD", // Lemon Chiffon
-    "#FFFAF0", // Floral White
-    "#FFF8DC", // Cornsilk
-    "#E0FFFF", // Light Cyan
-    "#FAFAD2", // Light Goldenrod Yellow
-    "#E6E6FA", // Lavender
-    "#F5F5DC", // Beige
-    "#F8F8FF", // Ghost White
-    "#F5F5F5"  // White Smoke
-  ]
+  const bgcColors: any = [
+    '#F0F8FF', // Alice Blue
+    '#FFF0F5', // Lavender Blush
+    '#F5FFFA', // Mint Cream
+    '#FFFFF0', // Ivory
+    '#FFFFE0', // Light Yellow
+    '#FFDAB9', // Peach Puff
+    '#B0E0E6', // Powder Blue
+    '#F0FFF0', // Honeydew
+    '#FFF5EE', // Seashell
+    '#FDF5E6', // Old Lace
+    '#FFE4E1', // Misty Rose
+    '#FFFACD', // Lemon Chiffon
+    '#FFFAF0', // Floral White
+    '#FFF8DC', // Cornsilk
+    '#E0FFFF', // Light Cyan
+    '#FAFAD2', // Light Goldenrod Yellow
+    '#E6E6FA', // Lavender
+    '#F5F5DC', // Beige
+    '#F8F8FF', // Ghost White
+    '#F5F5F5', // White Smoke
+  ];
   const [audioRecordings, setAudioRecordings] = useState<string[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1);
-  console.log("aaaaaaaaaaaaaaaaa", note)
+  console.log('aaaaaaaaaaaaaaaaa', note);
   useEffect(() => {
     return () => {
       if (isPlaying) {
@@ -92,7 +111,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
   const handleStartRecording = async () => {
     try {
       const result = await audioRecorderPlayer.startRecorder();
-      audioRecorderPlayer.addRecordBackListener(() => { });
+      audioRecorderPlayer.addRecordBackListener(() => {});
       setIsRecording(true);
       return result;
     } catch (error) {
@@ -111,7 +130,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       Alert.alert('Error stopping recording', error?.toString());
     }
   };
-  //renders the previosly recorded audio file 
+  //renders the previosly recorded audio file
   const handlePlayRecording = async (audioPath: string, index: number) => {
     try {
       if (isPlaying && currentAudioIndex === index) {
@@ -128,7 +147,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       await audioRecorderPlayer.startPlayer(audioPath);
       setIsPlaying(true);
       setCurrentAudioIndex(index);
-      audioRecorderPlayer.addPlayBackListener((e) => {
+      audioRecorderPlayer.addPlayBackListener(e => {
         if (e.currentPosition === e.duration) {
           setIsPlaying(false);
           setCurrentAudioIndex(-1);
@@ -145,26 +164,25 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       <TouchableOpacity
         key={index}
         style={[styles.audioItem]}
-        onPress={() => handlePlayRecording(path, index)}
-      >
+        onPress={() => handlePlayRecording(path, index)}>
         <Image
-          source={isPlaying && currentAudioIndex === index ? icons.pause : icons.play}
+          source={
+            isPlaying && currentAudioIndex === index ? icons.pause : icons.play
+          }
           style={styles.playIcon}
           tintColor={colors.mainBg}
         />
-        <Text style={{ color: colors.mainBg }}>Recording {index + 1}</Text>
+        <Text style={{color: colors.mainBg}}>Recording {index + 1}</Text>
       </TouchableOpacity>
     ));
   };
   const onShare = async () => {
     try {
-      const noteData = title + " " + note;
+      const noteData = title + ' ' + note;
       const result = await Share.share({
-        message:
-          noteData
+        message: noteData,
       });
-    }
-    catch (error: any) {
+    } catch (error: any) {
       Alert.alert(error.message);
     }
   };
@@ -175,7 +193,9 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
   const handlePress = () => {
     let colorToUse;
     if (flag === false) {
-      colorToUse = (color ? selectedColor : bgcColors[Math.floor(Math.random() * 20)]);
+      colorToUse = color
+        ? selectedColor
+        : bgcColors[Math.floor(Math.random() * 20)];
     }
     const noteData = {
       title,
@@ -185,32 +205,31 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       imageUri: imageUpload,
       audioFiles: audioRecordings,
     };
-    if (note !== "" && title !== "" && flag === false && !pin) {
+    if (note !== '' && title !== '' && flag === false && !pin) {
       dispatch(addNotes(noteData));
-    }
-    else if (note !== "" && title !== "" && flag === false && pin) {
-      dispatch(pinNotes(noteData))
-    }
-    else if (flag && !pin) {
-      dispatch(editNotes({
-        id,
-        item: {
-          ...noteData,
-        },
-      }));
+    } else if (note !== '' && title !== '' && flag === false && pin) {
+      dispatch(pinNotes(noteData));
+    } else if (flag && !pin) {
+      dispatch(
+        editNotes({
+          id,
+          item: {
+            ...noteData,
+          },
+        }),
+      );
     }
     navigation.goBack();
   };
 
-
   const handleTitle = (text: any) => {
     setTitle(text);
-  }
+  };
 
   const handleNote = (text: any) => {
     setNote(text);
-  }
-  //triggers when the audio player button is pressed 
+  };
+  //triggers when the audio player button is pressed
   const handleAudioPress = async () => {
     if (isRecording) {
       try {
@@ -232,11 +251,11 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
       return (
         <View key={index}>
           <Image
-            source={{ uri: image }}
+            source={{uri: image}}
             style={{
-              height: SCREEN_HEIGHT * 0.3 / imageCount,
-              width: SCREEN_WIDTH * 0.7 / imageCount,
-              resizeMode: 'contain'
+              height: (SCREEN_HEIGHT * 0.3) / imageCount,
+              width: (SCREEN_WIDTH * 0.7) / imageCount,
+              resizeMode: 'contain',
             }}
           />
         </View>
@@ -244,95 +263,75 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
     });
   };
   const renderItem = () => {
-    return (
-      <View style={styles.flexrap}>
-
-        {renderImage()}
-      </View>
-    )
-  }
+    return <View style={styles.flexrap}>{renderImage()}</View>;
+  };
   const deleteOperation = () => {
-    if (flag)
-      dispatch(deleteNotes(id));
+    if (flag) dispatch(deleteNotes(id));
     navigation.goBack();
-
-  }
+  };
 
   const handleCanvasPress = () => {
     setShowCanvas(true);
   };
   const handlePin = () => {
     setPin(true);
-  }
-
-
-
-
-  const handleSpeech = () => {
-    // SpeechToTextService.startListening((res) => {
-    //   console.log('SpeechToTextService', res)
-    // }, (res) => {
-    // })
-    // SpeechToTextService.startListening(() => { Alert.alert('') }, () => {})
-    // try {
-    //   // Check availability and permissions
-    //   const availability = SpeechToTextService.checkAvailabilityAndPermissions();
-    //   if (availability) {
-    //     SpeechToTextService.startListening((res) => {
-    //       console.log('SpeechToTextService', res)
-    //     }, (res) => {
-    //     });
-    //     console.log("Started listening successfully");
-    //     setTimeout(async () => {
-    //       console.log("Stopping listening...");
-    //       // SpeechToTextService.stopListening();
-    //       console.log("Stopped listening successfully");
-    //     }, 5000);  // Example: stop listening after 5 seconds
-    //   } else {
-    //     console.log("Permissions or availability check failed");
-    //   }
-    // } catch (error) {
-    //   console.error("Error in speech handling:", error);
-    // }
-    navigation.navigate('SpeechToTxtScreen')
   };
 
-
+  const handleSpeech = () => {
+    if (isListening) {
+      SpeechToTextService.stopListening();
+      setIsListening(false);
+    } else {
+      SpeechToTextService.checkAvailabilityAndPermissions().then(
+        (availability: any) => {
+          if (availability) {
+            SpeechToTextService.startListening(
+              transcript => {
+                setNote(prevState => prevState + ' ' + transcript);
+              },
+              error => {
+                console.log('Speech recognition error:', error);
+              },
+            );
+            setIsListening(true);
+          } else {
+            console.log('Permissions or availability check failed');
+          }
+        },
+      );
+    }
+  };
   return (
     <>
-      <Header
-        onPress={handlePress}
-        handlePin={handlePin}
-      />
-      <SafeAreaView style={{ flex: 1, backgroundColor: selectedColor, }} >
-        <ScrollView style={{ flex: 1 }}>
-          <View style={[styles.container, { backgroundColor: selectedColor }]}>
-            <View style={{ flex: 1 }}>
+      <Header onPress={handlePress} handlePin={handlePin} />
+      <SafeAreaView style={{flex: 1, backgroundColor: selectedColor}}>
+        <ScrollView style={{flex: 1}}>
+          <View style={[styles.container, {backgroundColor: selectedColor}]}>
+            <View style={{flex: 1}}>
               {renderAudioRecordings()}
               {renderItem()}
             </View>
             <TextInput
-              autoCapitalize='words'
+              autoCapitalize="words"
               enablesReturnKeyAutomatically={true}
-              keyboardAppearance='dark'
+              keyboardAppearance="dark"
               maxLength={40}
               placeholderTextColor={'black'}
-              placeholder='Title'
+              placeholder="Title"
               style={styles.title}
               value={title}
-              onChangeText={(text) => handleTitle(text)}
+              onChangeText={text => handleTitle(text)}
             />
             <TextInput
               enablesReturnKeyAutomatically={true}
-              keyboardAppearance='dark'
+              keyboardAppearance="dark"
               multiline={true}
               placeholderTextColor={'black'}
-              placeholder='Note'
+              placeholder="Note"
               style={styles.note}
               cursorColor={'white'}
               value={note}
-              onChangeText={(text) => handleNote(text)}
-
+              onChangeText={text => handleNote(text)}
             />
           </View>
         </ScrollView>
@@ -343,16 +342,23 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
           onClose={() => setShowCanvas(false)}
         />
       )}
+      <TouchableOpacity style={styles.speechButton} onPress={handleSpeech}>
+        {isListening ? (
+          <Image style={styles.audioWave} source={icons.gif} />
+        ) : (
+          <Text style={styles.speechText}>Speak to Text</Text>
+        )}
+      </TouchableOpacity>
       <NotesFooter
         handleCanvasPress={handleCanvasPress}
         onShare={onShare}
         onColorOptionPress={(color: string) => {
-          setSelectedColor(color)
+          setSelectedColor(color);
           setColor(true);
         }}
         deleteOperation={deleteOperation}
         imageUploadPress={(uri: string) => {
-          const newArr = [...imageUpload, uri]
+          const newArr = [...imageUpload, uri];
           setImageUpload(newArr);
         }}
         handleAudioPress={handleAudioPress}
@@ -360,8 +366,7 @@ const NotesScreen = ({ navigation }: { navigation: any }) => {
         handleSpeech={handleSpeech}
       />
     </>
-  )
-}
+  );
+};
 
-export default NotesScreen
-
+export default NotesScreen;
