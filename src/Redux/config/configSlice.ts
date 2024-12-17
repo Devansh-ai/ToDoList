@@ -15,6 +15,7 @@ interface ConfigModal {
     bgColor: string;
     audioFiles: string[];
   }[];
+ 
   deletedItem: {
     title: string;
     note: string;
@@ -31,6 +32,7 @@ interface ConfigModal {
     bgColor: string;
     audioFiles: string[];
   }[];
+  audioText:string;
 }
 let counter = 0;
 let initialState: ConfigModal = {
@@ -40,7 +42,8 @@ let initialState: ConfigModal = {
     { "audioFiles": [], "bgColor": "#E4F1AC", "imageUri": [], "note": "Save your voice notes now in notes app along with your text", "title": "Voice Recorder ", "uniqueId": 203 }
   ],
   deletedItem: [],
-  pinnedItems: []
+  pinnedItems: [],
+  audioText:"",
 };
 
 const ConfigSlice = createSlice({
@@ -73,6 +76,9 @@ const ConfigSlice = createSlice({
       };
       state.item.unshift(newNote);
 
+    },
+    audioNote:(state,action)=>{
+      console.log("payload",action.payload)
     },
     editNotes: (state, action) => {
       const { id, item } = action.payload;
@@ -111,7 +117,8 @@ export const {
   editNotes,
   deleteNotes,
   recoverNotes,
-  pinNotes
+  pinNotes,
+  audioNote,
 } = ConfigSlice.actions;
 
 export default ConfigSlice.reducer;

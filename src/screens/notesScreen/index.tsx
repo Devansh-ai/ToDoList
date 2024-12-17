@@ -57,6 +57,7 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
   if (items !== '' && result !== '') noteContent = items?.note + result;
   else if (result) noteContent = result;
   else noteContent = items?.note;
+  const [audioText, setAudioText] = useState('');
   const [note, setNote] = useState<string>(noteContent || '');
   const [showCanvas, setShowCanvas] = useState(false);
   const [selectedColor, setSelectedColor] = useState<string>(colors.theme);
@@ -90,7 +91,7 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1);
-  console.log('aaaaaaaaaaaaaaaaa', note);
+  console.log('note text-->', note);
   useEffect(() => {
     return () => {
       if (isPlaying) {
@@ -107,7 +108,7 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
       setAudioRecordings(items?.audioFiles);
     }
   }, [items]);
-  //renders audio recorder
+
   const handleStartRecording = async () => {
     try {
       const result = await audioRecorderPlayer.startRecorder();
@@ -229,6 +230,7 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
   const handleNote = (text: any) => {
     setNote(text);
   };
+
   //triggers when the audio player button is pressed
   const handleAudioPress = async () => {
     if (isRecording) {
@@ -277,17 +279,63 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
     setPin(true);
   };
 
+  // const handleSpeech = () => {
+
+  //   if (isListening) {
+
+  //     SpeechToTextService.stopListening();
+  //     setIsListening(false);
+  //   } else {
+
+  //     SpeechToTextService.checkAvailabilityAndPermissions().then(
+  //       (availability: any) => {
+  //         if (availability) {
+  //           SpeechToTextService.startListening(
+  //             partialTranscript => {
+  //               console.log('partial tras-->', partialTranscript)
+
+  //               setNote(prevState => {
+  //                 // console.log('prevstatesetnote-->', prevState)
+  //                 const updatedNote = prevState + ' ' + partialTranscript;
+  //                 // console.log('updatednote-->', updatedNote)
+  //                 return updatedNote;
+  //               });
+
+  //             },
+  //             error => {
+  //               console.log('Speech recognition error:', error);
+  //             },
+  //           );
+  //           setIsListening(true);
+  //         } else {
+  //           console.log('Permissions or availability check failed');
+  //         }
+  //       },
+  //     );
+  //   }
+  // };
+
   const handleSpeech = () => {
     if (isListening) {
       SpeechToTextService.stopListening();
       setIsListening(false);
     } else {
+      // console.log('else block')
       SpeechToTextService.checkAvailabilityAndPermissions().then(
         (availability: any) => {
           if (availability) {
             SpeechToTextService.startListening(
-              transcript => {
-                setNote(prevState => prevState + ' ' + transcript);
+              partialTranscript => {
+                // console.log('partial transcript--> ', partialTranscript);
+                // Immediately update the note every time a new partial transcript is received
+
+                setNote(prevState => {
+                  // console.log('prevState before setNote--> ', prevState); // Log previous state
+                  const updatedNote = prevState + ' ' + partialTranscript; // Concatenate the new transcript
+                  // console.log('Updated Note--> ', updatedNote); // Log updated note
+                  return updatedNote; // Return the updated note
+                });
+              
               },
               error => {
                 console.log('Speech recognition error:', error);
@@ -301,6 +349,7 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
       );
     }
   };
+
   return (
     <>
       <Header onPress={handlePress} handlePin={handlePin} />

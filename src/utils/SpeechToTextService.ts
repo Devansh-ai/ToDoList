@@ -105,32 +105,37 @@ const SpeechToTextService = {
       return true;
     }
   },
+
   startListening: async (
     onTextRecognized: SpeechRecognitionCallback,
     isListening: (arg0: boolean) => void,
   ) => {
     try {
+      let partialTranscript = ''; 
+
       Voice.onSpeechResults = (event: any) => {
         console.log('result of speech', event);
+
         const transcript = event.value[0];
-        onTextRecognized(transcript);
-        console.log('transcript', transcript);
+        partialTranscript = transcript;
+        console.log('Partial transcript:', partialTranscript);
       };
 
       Voice.onSpeechStart = () => {
         try {
           console.log('Speech started');
-          isListening(true);
+          isListening(true); 
         } catch (error) {
           console.log('error of speech started', error);
         }
       };
 
       Voice.onSpeechEnd = async () => {
-        console.log('ye end');
-        isListening(false);
-      };
-
+        console.log('Speech ended');
+        isListening(false); 
+        onTextRecognized(partialTranscript);
+        console.log('Final transcript:', partialTranscript);
+      };      
       await Voice.start('en-GB');
     } catch (error) {
       console.error('Error starting speech recognition:', error);
