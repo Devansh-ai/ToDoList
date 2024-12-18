@@ -279,63 +279,20 @@ const NotesScreen = ({navigation}: {navigation: any}) => {
     setPin(true);
   };
 
-  // const handleSpeech = () => {
-
-  //   if (isListening) {
-
-  //     SpeechToTextService.stopListening();
-  //     setIsListening(false);
-  //   } else {
-
-  //     SpeechToTextService.checkAvailabilityAndPermissions().then(
-  //       (availability: any) => {
-  //         if (availability) {
-  //           SpeechToTextService.startListening(
-  //             partialTranscript => {
-  //               console.log('partial tras-->', partialTranscript)
-
-  //               setNote(prevState => {
-  //                 // console.log('prevstatesetnote-->', prevState)
-  //                 const updatedNote = prevState + ' ' + partialTranscript;
-  //                 // console.log('updatednote-->', updatedNote)
-  //                 return updatedNote;
-  //               });
-
-  //             },
-  //             error => {
-  //               console.log('Speech recognition error:', error);
-  //             },
-  //           );
-  //           setIsListening(true);
-  //         } else {
-  //           console.log('Permissions or availability check failed');
-  //         }
-  //       },
-  //     );
-  //   }
-  // };
-
   const handleSpeech = () => {
     if (isListening) {
       SpeechToTextService.stopListening();
       setIsListening(false);
     } else {
-      // console.log('else block')
       SpeechToTextService.checkAvailabilityAndPermissions().then(
         (availability: any) => {
           if (availability) {
             SpeechToTextService.startListening(
               partialTranscript => {
-                // console.log('partial transcript--> ', partialTranscript);
-                // Immediately update the note every time a new partial transcript is received
-
                 setNote(prevState => {
-                  // console.log('prevState before setNote--> ', prevState); // Log previous state
-                  const updatedNote = prevState + ' ' + partialTranscript; // Concatenate the new transcript
-                  // console.log('Updated Note--> ', updatedNote); // Log updated note
-                  return updatedNote; // Return the updated note
+                  const updatedNote = prevState + ' ' + partialTranscript;
+                  return updatedNote;
                 });
-              
               },
               error => {
                 console.log('Speech recognition error:', error);

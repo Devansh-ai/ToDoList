@@ -1,11 +1,6 @@
 import Voice from '@react-native-voice/voice';
 import {Alert, Linking, Platform} from 'react-native';
-import {
-  request,
-  PERMISSIONS,
-  checkMultiple,
-  requestMultiple,
-} from 'react-native-permissions';
+import {request, PERMISSIONS} from 'react-native-permissions';
 
 type SpeechRecognitionCallback = (text: string) => void;
 let stopTimeout: string | number | NodeJS.Timeout | undefined;
@@ -111,7 +106,7 @@ const SpeechToTextService = {
     isListening: (arg0: boolean) => void,
   ) => {
     try {
-      let partialTranscript = ''; 
+      let partialTranscript = '';
 
       Voice.onSpeechResults = (event: any) => {
         console.log('result of speech', event);
@@ -124,7 +119,7 @@ const SpeechToTextService = {
       Voice.onSpeechStart = () => {
         try {
           console.log('Speech started');
-          isListening(true); 
+          isListening(true);
         } catch (error) {
           console.log('error of speech started', error);
         }
@@ -132,10 +127,10 @@ const SpeechToTextService = {
 
       Voice.onSpeechEnd = async () => {
         console.log('Speech ended');
-        isListening(false); 
+        isListening(false);
         onTextRecognized(partialTranscript);
         console.log('Final transcript:', partialTranscript);
-      };      
+      };
       await Voice.start('en-GB');
     } catch (error) {
       console.error('Error starting speech recognition:', error);
